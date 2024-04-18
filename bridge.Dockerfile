@@ -1,4 +1,5 @@
-FROM osrf/ros:noetic-desktop-full
+#FROM osrf/ros:noetic-desktop-full
+FROM arm64v8/ros:noetic-ros-core
 
 RUN apt-get update
 

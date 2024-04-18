@@ -41,7 +41,7 @@ services:
     <<: *base_service
     #    profiles: [ "gpu", "cpu", "realsense" ]
     profiles: [ "gpu", "cpu" ]
-    image: osrf/ros:noetic-desktop
+    image: arm64v8/ros:noetic-ros-core
     command: [ "roscore", "-v" ]
 
   bridge:

@@ -33,7 +33,7 @@ video.set(4, 720)  # height
 
 rospy.init_node('camera', anonymous=True)
 img_pub = rospy.Publisher('camera/raw', Image, queue_size=10)
-info_pub = rospy.Publisher('camera/info', CameraInfo, queue_size=10)
+# info_pub = rospy.Publisher('camera/info', CameraInfo, queue_size=10)
 
 fps = video.get(cv2.CAP_PROP_FPS)
 rate = rospy.Rate(fps) if fps > 0 else 30
@@ -48,9 +48,6 @@ while not rospy.is_shutdown():
     if not good:
         print("failed to read image")
         continue
-    # cv2.namedWindow('camera', cv2.WINDOW_AUTOSIZE)
-    # cv2.imshow('camera', img)
-    # key = cv2.waitKey(1)
 
     try:
         # Publish image.
@@ -62,7 +59,3 @@ while not rospy.is_shutdown():
         print(err)
 
     rate.sleep()
-
-    # if key == 81 or key == 113 or key == 27:
-    #     print("code complete")
-    #     exit(0)

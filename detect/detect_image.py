@@ -45,55 +45,91 @@ def draw_circle(image, x: int, y: int, radius: int):
     cv2.circle(image, (x, y), radius, (255, 0, 255), 4)
 
 
-vec_pub = rospy.Publisher('objects/found/pose', Pose, queue_size=10)
+def draw_line(image, x1, y1, x2, y2, color=(255, 0, 0)):
+    cv2.line(image, (x1, y1), (x2, y2), color, 2)
 
+
+pose_pub = rospy.Publisher('objects/found/closest', Pose, queue_size=1)
+poses_pub = rospy.Publisher('objects/found/all', PoseArray, queue_size=1)
+img_pub = rospy.Publisher('camera/boxes', Image, queue_size=10)
 test_pub = rospy.Publisher('test', String, queue_size=10)
 
 
 def callback(data):
+    global pose_pub, img_pub, test_pub
+    test_pub.publish(str(rospy.Time.now()))
     img = bridge.imgmsg_to_cv2(data, desired_encoding="bgr8")
-    results = model(img, stream=True, verbose=True)
-    # for res in results:
-    #     x, y, _, _ = res.boxes[0].xyxy[0]
-    #     pose = Pose()
-    #     pose.position.x = x
-    #     pose.position.y = y
-    #     pose.position.z = 0
-    #     pose.orientation.x = 0
-    #     pose.orientation.y = 0
-    #     pose.orientation.z = 0
-    #     vec_pub.publish(pose)
-    # poses = PoseArray()
+    results = model(img, stream=True, verbose=False)
+
+    poses = PoseArray()
+    height, width, _ = img.shape
+    # width, height = 500, 500
+    # print(img.shape)
+
+    clx, cly = -3000000, -3000000
+    distance = math.sqrt(clx ** 2 + cly ** 2)
+
     for box in next(results).boxes:
-       if box.conf[0] < 0.6:
-           continue
+        # pose_pub.publish(pose)
+        if box.conf[0] < 0.6:
+            continue
 
-       x1, y1, x2, y2 = box.xyxy[0]
-       x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
+        x1, y1, x2, y2 = box.xyxy[0]
+        x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
 
-       confidence = math.ceil((box.conf[0] * 100)) / 100
-       class_idx = int(box.cls[0])
+        confidence = math.ceil((box.conf[0] * 100)) / 100
+        class_idx = int(box.cls[0])
 
-       # pose = Pose(position=((x2 - x1) / 2 + x1, (y2 - y1) / 2 + y1, 0), orientation=(0, 0, 0, 0))
-       # poses.append(pose)
+        cx = math.floor((x2 - x1) / 2 + x1)
+        cy = math.floor((y2 - y1) / 2 + y1)
 
-       draw_box(img, x1, y1, x2, y2)
-       draw_circle(img, math.floor((x2 - x1) / 2 + x1), math.floor((y2 - y1) / 2 + y1), 4)
+        dcx = abs(cx - width)
+        dcy = abs(cy - height)
+        d = math.sqrt(dcx ** 2 + dcy ** 2)
+        if d < distance:
+            clx, cly = dcx, dcy
+            distance = d
 
-    # pose_pub.publish(poses)
+        draw_box(img, x1, y1, x2, y2)
+        draw_circle(img, cx, cy, 4)
+        draw_line(img, cx, cy, math.floor(width / 2), math.floor(height / 2))
+        p = Pose()
+        p.position.x = clx
+        p.position.y = cly
+        p.position.z = 0
+        p.orientation.x = 0
+        p.orientation.y = 0
+        p.orientation.z = 0
+        poses.poses.append(p)
 
-    cv2.namedWindow('detect', cv2.WINDOW_AUTOSIZE)
-    cv2.imshow('detect', img)
-    key = cv2.waitKey(1)
-    if key == 81 or key == 113 or key == 27:
-        print("code complete")
-        exit(0)
+    pose = Pose()
+    pose.position.x = clx
+    pose.position.y = cly
+    pose.position.z = 0
+    pose.orientation.x = 0
+    pose.orientation.y = 0
+    pose.orientation.z = 0
+    pose_pub.publish(pose)
+    poses_pub.publish(poses)
+
+    if not (clx < 0 or cly < 0):
+        draw_line(img, clx, cly, math.floor(width / 2), math.floor(height / 2), (0, 0, 255))
+
+    img_msg = bridge.cv2_to_imgmsg(img, encoding="bgr8")
+    img_msg.header.stamp = rospy.Time.now()
+    # img_msg.header.frame_id = args.frame_id
+    img_pub.publish(img_msg)
+    # cv2.namedWindow('detect', cv2.WINDOW_AUTOSIZE)
+    # cv2.imshow('detect', img)
+    # key = cv2.waitKey(1)
+    # if key == 81 or key == 113 or key == 27:
+    #     print("code complete")
+    #     exit(0)
 
 
 print("started")
 rospy.init_node('image_detect', anonymous=True)
 rospy.Subscriber("camera/raw", Image, callback)
-pose_pub = rospy.Publisher('objects/found/2D', PoseArray, queue_size=10)
 
 rospy.spin()
 

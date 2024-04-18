@@ -44,6 +44,7 @@ RUN mkdir -p /opt/detect
 
 USER dockeruser
 RUN pip3 install cv-bridge
+RUN pip3 install opencv-python
 USER root
 
 WORKDIR "/home/dockeruser"

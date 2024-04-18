@@ -34,6 +34,10 @@ RUN #apt-get -y install librealsense2-dkms
 RUN #mkdir -p /root/test
 RUN mkdir -p /opt/detect
 
+USER dockeruser
+RUN pip3 install cv-bridge
+USER root
+
 #RUN apt-get install -y wget udev
 #RUN yes | wget https://github.com/IntelRealSense/librealsense/raw/master/scripts/libuvc_installation.sh
 #RUN chmod +x ./libuvc_installation.sh

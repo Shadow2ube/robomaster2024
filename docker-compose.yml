@@ -7,10 +7,10 @@ x-base_service: &base_service
     - DISPLAY=${DISPLAY}
     #    - ROS_MASTER_URI=http://10.0.0.99:11311
     #    - ROS_IP=10.0.0.99
-    - ROS_MASTER_URI=http://172.20.0.1:11311
-    - ROS_IP=172.20.0.1
+    - ROS_MASTER_URI=http://127.0.0.1:11311
+    - ROS_IP=127.0.0.1
   volumes:
-    - /home/christian/PycharmProjects/deepsort:/run/detect
+    - .:/run/detect
     #      - /run/detect/.venv
     - /tmp/.X11-unix:/tmp/.X11-unix
     - /dev/video0:/dev/video0

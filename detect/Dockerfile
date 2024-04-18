@@ -43,6 +43,8 @@ RUN mkdir -p /opt/detect
 #RUN ./libuvc_installation.sh
 
 USER dockeruser
+RUN pip3 install cv-bridge
+USER root
 
 WORKDIR "/home/dockeruser"
 

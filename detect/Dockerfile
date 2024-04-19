@@ -1,28 +1,12 @@
-#FROM osrf/ros:noetic-desktop-full
-FROM arm64v8/ros:noetic-ros-core
-FROM nvcr.io/nvidia/l4t-base:r35.1.0
+FROM osrf/ros:noetic-desktop-full
+#FROM arm64v8/ros:noetic-ros-core
+#FROM nvcr.io/nvidia/l4t-base:r35.1.0
+
 
 RUN apt-get update
-RUN apt-get -y install curl python3 pip lsb-release apt-transport-https
-
-RUN mkdir -p /etc/apt/keyrings
-RUN curl -sSf https://librealsense.intel.com/Debian/librealsense.pgp \
-    | tee /etc/apt/keyrings/librealsense.pgp > /dev/null
-
-RUN echo "deb [signed-by=/etc/apt/keyrings/librealsense.pgp] https://librealsense.intel.com/Debian/apt-repo `lsb_release -cs` main" \
-    | tee /etc/apt/sources.list.d/librealsense.list
-
 RUN apt-get update
 
 ENV PATH="${PATH}:/home/dockeruser/.local/bin"
-
-#RUN apt-get -y install libopenblas-base libopenmpi-dev libomp-dev
-#RUN apt-get -y install libjpeg-dev zlib1g-dev libpython3-dev libopenblas-dev libavcodec-dev libavformat-dev libswscale-dev
-#
-#RUN apt-get -y install software-properties-common
-#RUN add-apt-repository -y ppa:deadsnakes/ppa
-#RUN apt-get -y install python3.6
-#RUN apt-get -y install python3-pip
 
 RUN groupmod --gid 985 video
 RUN useradd -m --uid 1000 dockeruser
@@ -31,17 +15,7 @@ RUN mkdir -p /opt/extra
 RUN chown dockeruser /opt/extra
 USER dockeruser
 
-RUN #pip3 install 'Cython<3'
 RUN pip3 install numpy
-RUN #curl https://nvidia.box.com/shared/static/fjtbno0vpo676a25cgvuqc1wty0fkkg6.whl -o /opt/extra/torch-1.10.0-cp36-cp36m-linux_aarch64.whl \
-#    && pip3 install numpy /opt/extra/torch-1.10.0-cp36-cp36m-linux_aarch64.whl
-RUN #git clone --branch v0.3.0 https://github.com/pytorch/vision torchvision \
-#    && cd torchvision \
-#    && export BUILD_VERSION=0.3.0 \
-#    && python3 setup.py install --user \
-#    && cd ../ \
-#    && pip install 'pillow<7'
-
 RUN pip3 install opencv-python
 RUN pip3 install pyrealsense2
 RUN pip3 install ultralytics

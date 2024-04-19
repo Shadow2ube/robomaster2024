@@ -32,7 +32,7 @@ USER dockeruser
 
 RUN pip3 install 'Cython<3'
 RUN pip3 install numpy
-RUN wget https://nvidia.box.com/shared/static/fjtbno0vpo676a25cgvuqc1wty0fkkg6.whl -O /opt/extra/torch-1.10.0-cp36-cp36m-linux_aarch64.whl \
+RUN curl https://nvidia.box.com/shared/static/fjtbno0vpo676a25cgvuqc1wty0fkkg6.whl -O /opt/extra/torch-1.10.0-cp36-cp36m-linux_aarch64.whl \
     && pip3 install numpy /opt/extra/torch-1.8.0-cp36-cp36m-linux_aarch64.whl
 RUN git clone --branch v0.3.0 https://github.com/pytorch/vision torchvision \
     && cd torchvision \

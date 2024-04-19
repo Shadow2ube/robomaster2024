@@ -17,7 +17,6 @@ ENV PATH="${PATH}:/home/dockeruser/.local/bin"
 
 RUN apt-get -y install python3-pip libopenblas-base libopenmpi-dev libomp-dev
 RUN apt-get -y install libjpeg-dev zlib1g-dev libpython3-dev libopenblas-dev libavcodec-dev libavformat-dev libswscale-dev
-RUN curl https://nvidia.box.com/shared/static/fjtbno0vpo676a25cgvuqc1wty0fkkg6.whl -o pytorch.whl
 
 RUN groupmod --gid 985 video
 RUN useradd -m --uid 1000 dockeruser
@@ -25,7 +24,8 @@ RUN usermod -a -G video dockeruser
 USER dockeruser
 
 RUN pip3 install 'Cython<3'
-RUN pip3 install numpy pytorch.whl
+RUN curl https://nvidia.box.com/shared/static/fjtbno0vpo676a25cgvuqc1wty0fkkg6.whl -o /home/dockeruser/pytorch.whl
+RUN pip3 install numpy /home/dockeruser/pytorch.whl
 RUN git clone --branch v0.3.0 https://github.com/pytorch/vision torchvision \
     && cd torchvision \
     && export BUILD_VERSION=0.3.0 \

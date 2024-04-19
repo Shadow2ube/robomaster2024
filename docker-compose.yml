@@ -1,30 +1,15 @@
 #version: "3.8"
 
 x-base_service: &base_service
-#  image: detect:latest
-  #  build: .
   environment:
     - DISPLAY=${DISPLAY}
-    #    - ROS_MASTER_URI=http://10.0.0.99:11311
-    #    - ROS_IP=10.0.0.99
-    - ROS_MASTER_URI=http://192.168.55.1:11311
-    - ROS_IP=192.168.55.1
+    - ROS_MASTER_URI=http://127.0.1.1:11311
+    - ROS_IP=127.0.1.1
   volumes:
     - .:/run/detect
-    #      - /run/detect/.venv
     - /tmp/.X11-unix:/tmp/.X11-unix
     - /dev/video0:/dev/video0
     - /dev:/dev
-
-  command: [
-    #    "cd", "/run/detect/src",
-    #    "&&",
-    #    "ls", "-Al /run/detect"
-    #    "python3", "robomast.py", "-f", "../videos/UW vs UCSD Group A BO2  _ 2022 RoboMaster University League North America.mp4"
-    #    "cd /run/detect/src && python3 robomast.py -f 0"
-    #    "python3", "/run/detect/src/robomast.py", "-m", "/run/detect/best_1.pt", "-f", "/run/detect/videos/UW vs UCSD Group A BO2  _ 2022 RoboMaster University League North America.mp4"
-    #    "python3", "/run/detect/test.py"
-  ]
   network_mode: host
 
 x-with-gpu: &with_gpu
@@ -39,8 +24,6 @@ x-with-gpu: &with_gpu
 services:
   roscore:
     <<: *base_service
-    #    profiles: [ "gpu", "cpu", "realsense" ]
-    profiles: [ "gpu", "cpu" ]
     image: arm64v8/ros:noetic-ros-core
     command: [ "roscore", "-v" ]
 
@@ -49,11 +32,8 @@ services:
     build:
       context: .
       dockerfile: ./bridge.Dockerfile
-    #    profiles: [ "gpu", "cpu", "realsense" ]
-    profiles: [ "gpu", "cpu" ]
+    profiles: [ "bridge" ]
     command: [ "rosrun", "foxglove_bridge", "foxglove_bridge" ]
-    depends_on:
-      - roscore
 
   img_detect_gpu: &img_detect_gpu
     <<: [ *base_service, *with_gpu ]
@@ -62,13 +42,15 @@ services:
       dockerfile: ./detect/Dockerfile
     profiles: [ "gpu" ]
     command: [ "python3", "/run/detect/detect/detect_image.py", "-m", "/run/detect/best_1.pt" ]
-#    command: [ "python3", "-c", "import numpy;print(numpy.__version__)", "/run/detect/best_1.pt" ]
     depends_on:
       - roscore
       - img_pub
 
   img_detect_cpu:
     <<: *img_detect_gpu
+    build:
+      context: .
+      dockerfile: ./detect/Dockerfile
     profiles: [ "cpu" ]
     deploy: { }
 
@@ -79,7 +61,6 @@ services:
       dockerfile: ./camera/Dockerfile
     profiles: [ "webcam" ]
     privileged: true
-#    command: ["python3", "--version"]
 #    command: [ "python3", "/run/detect/camera/img_pub.py", "-f", "/run/detect/videos/UW vs UCSD Group A BO2  _ 2022 RoboMaster University League North America.mp4" ]
     command: [ "python3", "/run/detect/camera/img_pub.py", "-f", "0" ]
     depends_on:

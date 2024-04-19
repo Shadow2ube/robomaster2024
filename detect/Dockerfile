@@ -1,5 +1,6 @@
 #FROM osrf/ros:noetic-desktop-full
 FROM arm64v8/ros:noetic-ros-core
+FROM nvcr.io/nvidia/l4t-base:r35.1.0
 
 RUN apt-get update
 RUN apt-get -y install curl python3 pip lsb-release apt-transport-https
@@ -15,13 +16,13 @@ RUN apt-get update
 
 ENV PATH="${PATH}:/home/dockeruser/.local/bin"
 
-RUN apt-get -y install libopenblas-base libopenmpi-dev libomp-dev
-RUN apt-get -y install libjpeg-dev zlib1g-dev libpython3-dev libopenblas-dev libavcodec-dev libavformat-dev libswscale-dev
-
-RUN apt-get -y install software-properties-common
-RUN add-apt-repository -y ppa:deadsnakes/ppa
-RUN apt-get -y install python3.6
-RUN apt-get -y install python3-pip
+#RUN apt-get -y install libopenblas-base libopenmpi-dev libomp-dev
+#RUN apt-get -y install libjpeg-dev zlib1g-dev libpython3-dev libopenblas-dev libavcodec-dev libavformat-dev libswscale-dev
+#
+#RUN apt-get -y install software-properties-common
+#RUN add-apt-repository -y ppa:deadsnakes/ppa
+#RUN apt-get -y install python3.6
+#RUN apt-get -y install python3-pip
 
 RUN groupmod --gid 985 video
 RUN useradd -m --uid 1000 dockeruser

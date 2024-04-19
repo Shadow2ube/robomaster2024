@@ -18,7 +18,8 @@ ENV PATH="${PATH}:/home/dockeruser/.local/bin"
 RUN apt-get -y install software-properties-common
 RUN add-apt-repository -y ppa:deadsnakes/ppa
 RUN apt-get -y install python3.6
-RUN apt-get -y install python3.6-pip libopenblas-base libopenmpi-dev libomp-dev
+RUN apt-get -y remove python3
+RUN apt-get -y install python3-pip libopenblas-base libopenmpi-dev libomp-dev
 RUN apt-get -y install libjpeg-dev zlib1g-dev libpython3-dev libopenblas-dev libavcodec-dev libavformat-dev libswscale-dev
 
 RUN groupmod --gid 985 video

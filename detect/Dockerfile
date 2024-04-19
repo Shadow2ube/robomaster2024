@@ -1,6 +1,5 @@
 #FROM osrf/ros:noetic-desktop-full
 FROM arm64v8/ros:noetic-ros-core
-FROM 
 
 RUN apt-get update
 RUN apt-get -y install curl python3 pip lsb-release apt-transport-https

@@ -46,8 +46,6 @@ RUN apt-get -y install python3-opencv
 
 USER dockeruser
 RUN pip3 install cv-bridge
-RUN pip3 install opencv-python
-USER root
 
 WORKDIR "/home/dockeruser"
 

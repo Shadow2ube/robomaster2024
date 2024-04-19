@@ -38,6 +38,7 @@ img_pub = rospy.Publisher('camera/raw', Image, queue_size=10)
 fps = video.get(cv2.CAP_PROP_FPS)
 rate = rospy.Rate(fps) if fps > 0 else 30
 bridge = CvBridge()
+print(rate)
 
 if not video.isOpened():
     print("Error opening video stream or file")
@@ -58,4 +59,4 @@ while not rospy.is_shutdown():
     except CvBridgeError as err:
         print(err)
 
-    rate.sleep()
+    # rate.sleep()

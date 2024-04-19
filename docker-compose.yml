@@ -49,9 +49,9 @@ services:
       dockerfile: ./detect/Dockerfile
     profiles: [ "gpu" ]
     command: [ "python3", "/run/detect/detect/detect_image.py", "-m", "/run/detect/best_1.pt" ]
-    depends_on:
-      - roscore
-      - img_pub
+#    depends_on:
+#      - roscore
+#      - img_pub
 
   img_detect_cpu:
     <<: *img_detect_gpu

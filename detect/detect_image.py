@@ -119,12 +119,12 @@ def callback(data):
     img_msg.header.stamp = rospy.Time.now()
     # img_msg.header.frame_id = args.frame_id
     img_pub.publish(img_msg)
-    # cv2.namedWindow('detect', cv2.WINDOW_AUTOSIZE)
-    # cv2.imshow('detect', img)
-    # key = cv2.waitKey(1)
-    # if key == 81 or key == 113 or key == 27:
-    #     print("code complete")
-    #     exit(0)
+    cv2.namedWindow('detect', cv2.WINDOW_AUTOSIZE)
+    cv2.imshow('detect', img)
+    key = cv2.waitKey(1)
+    if key == 81 or key == 113 or key == 27:
+        print("code complete")
+        exit(0)
 
 
 print("started")

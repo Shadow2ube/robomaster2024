@@ -4,7 +4,7 @@ FROM osrf/ros:noetic-desktop-full
 
 
 RUN apt-get update
-RUN apt-get update
+RUN apt-get -y install pip
 
 ENV PATH="${PATH}:/home/dockeruser/.local/bin"
 

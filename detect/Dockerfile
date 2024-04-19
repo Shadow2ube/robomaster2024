@@ -23,9 +23,9 @@ RUN useradd -m --uid 1000 dockeruser
 RUN usermod -a -G video dockeruser
 USER dockeruser
 
-RUN curl https://nvidia.box.com/shared/static/fjtbno0vpo676a25cgvuqc1wty0fkkg6.whl -o pytorch.whl
 RUN pip3 install 'Cython<3'
-RUN pip3 install numpy pytorch.whl
+RUN curl https://nvidia.box.com/shared/static/fjtbno0vpo676a25cgvuqc1wty0fkkg6.whl -o pytorch.whl \
+    && pip3 install numpy pytorch.whl
 RUN git clone --branch v0.3.0 https://github.com/pytorch/vision torchvision \
     && cd torchvision \
     && export BUILD_VERSION=0.3.0 \

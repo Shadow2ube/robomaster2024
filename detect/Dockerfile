@@ -15,7 +15,10 @@ RUN apt-get update
 
 ENV PATH="${PATH}:/home/dockeruser/.local/bin"
 
-RUN apt-get -y install python3-pip libopenblas-base libopenmpi-dev libomp-dev
+RUN apt-get -y install software-properties-common
+RUN add-apt-repository -y ppa:deadsnakes/ppa
+RUN apt-get -y install python3.6
+RUN apt-get -y install python3.6-pip libopenblas-base libopenmpi-dev libomp-dev
 RUN apt-get -y install libjpeg-dev zlib1g-dev libpython3-dev libopenblas-dev libavcodec-dev libavformat-dev libswscale-dev
 
 RUN groupmod --gid 985 video
@@ -26,8 +29,9 @@ RUN chown dockeruser /opt/extra
 USER dockeruser
 
 RUN pip3 install 'Cython<3'
-RUN curl https://nvidia.box.com/shared/static/fjtbno0vpo676a25cgvuqc1wty0fkkg6.whl -o /opt/extra/torch-1.10.0-cp36-cp36m-linux_aarch64.whl \
-    && pip3 install numpy /opt/extra/torch-1.10.0-cp36-cp36m-linux_aarch64.whl
+RUN pip3 install numpy
+RUN pip3 install https://developer.download.nvidia.com/compute/redist/jp/v461/pytorch/torch-1.11.0a0+bfe5ad28-cp38-cp38-linux_aarch64.whl
+RUN wget https://nvidia.box.com/shared/static/fjtbno0vpo676a25cgvuqc1wty0fkkg6.whl -O torch-1.10.0-cp36-cp36m-linux_aarch64.whl
 RUN git clone --branch v0.3.0 https://github.com/pytorch/vision torchvision \
     && cd torchvision \
     && export BUILD_VERSION=0.3.0 \

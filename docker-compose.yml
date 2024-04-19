@@ -3,8 +3,8 @@
 x-base_service: &base_service
   environment:
     - DISPLAY=${DISPLAY}
-    - ROS_MASTER_URI=http://127.0.1.1:11311
-    - ROS_IP=127.0.1.1
+    - ROS_MASTER_URI=http://192.168.55.1:11311
+    - ROS_IP=192.168.55.1
   volumes:
     - .:/run/detect
     - /tmp/.X11-unix:/tmp/.X11-unix
@@ -23,9 +23,16 @@ x-with-gpu: &with_gpu
 
 services:
   roscore:
-    <<: *base_service
     image: arm64v8/ros:noetic-ros-core
-    command: [ "roscore", "-v" ]
+    environment:
+      - ROS_MASTER_URI=http://192.168.55.1:11311/
+      - ROS_IP=192.168.55.1
+    network_mode: host
+    privileged: true
+    #command: [ "roscore", "-v" ]
+    #command: ["apt-get", "update", "&&", "apt-get", "install", "-y", "iproute2", "&&", "ip", "addr" ]
+    #command: ["sh", "-c", "apt-get update && apt-get install -y iproute2 && ip addr && roscore -v" ]
+    command: [ "sh", "-c", "ROS_MASTER_URI=http://192.168.55.1:11311/ ROS_IP=192.168.55.1 roscore -v" ]
 
   bridge:
     <<: *base_service

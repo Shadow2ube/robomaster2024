@@ -1,6 +1,5 @@
 """
-Gets video from a camera source
-Publishes to /camera/raw
+-> /camera/raw - video from camera
 """
 
 import argparse

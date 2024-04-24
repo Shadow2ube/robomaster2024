@@ -1,7 +1,8 @@
 """
-Reads images from /camera/raw
-Publishes annotated images to /camera/boxes
-Publishes where things are to /objects/found
+<- /camera/raw
+-> /camera/boxes          - detection boxes over image
+-> /objects/found/all     - location of all found objects
+-> /objects/found/closest - location of closest object to center of screen
 """
 
 import argparse
@@ -78,9 +79,6 @@ def callback(data):
 
         x1, y1, x2, y2 = box.xyxy[0]
         x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
-
-        confidence = math.ceil((box.conf[0] * 100)) / 100
-        class_idx = int(box.cls[0])
 
         cx = math.floor((x2 - x1) / 2 + x1)
         cy = math.floor((y2 - y1) / 2 + y1)

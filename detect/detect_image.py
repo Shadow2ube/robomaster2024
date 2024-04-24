@@ -1,35 +1,29 @@
 """
 Reads images from /camera/raw
-Publishes annotated images to /camera/annotated
+Publishes annotated images to /camera/boxes
 Publishes where things are to /objects/found
 """
 
 import argparse
-import itertools
 import math
-
-import numpy as np
-
 import cv2
-
-from multiprocessing import Process
-
 import rospy
-import ultralytics
+from ultralytics import YOLO
 
 from sensor_msgs.msg import Image
 from geometry_msgs.msg import Pose, PoseArray, Vector3
 from std_msgs.msg import String
 # from sensor_msgs.msg import CameraInfo
 from cv_bridge import CvBridge, CvBridgeError
-from ultralytics import YOLO
 
 parser = argparse.ArgumentParser(
     prog='detect_image',
     description='Looks for objects in an image from /camera/raw and publishes them')
 parser.add_argument('-m', '--model', default=-1, type=str)
+parser.add_argument('-c', '--min_conf', default=0.6, type=int)
 
 args = parser.parse_args()
+min_conf = args.min_conf
 
 bridge = CvBridge()
 print("Loading model...", end='')
@@ -39,10 +33,6 @@ print("Done!")
 
 def draw_box(image, x: int, y: int, xe: int, ye: int):
     cv2.rectangle(image, (x, y), (xe, ye), (0, 255, 0), thickness=1)
-
-    # if title != '':
-    #     cvzone.putTextRect(image, title, (max(0, x), max(35, y)), scale=0.8, thickness=1)
-    #     cv2.putText()
 
 
 def draw_circle(image, x: int, y: int, radius: int):
@@ -78,15 +68,12 @@ def callback(data):
 
     poses = PoseArray()
     height, width, _ = img.shape
-    # width, height = 500, 500
-    # print(img.shape)
 
     clx, cly = -3000000, -3000000
     distance = math.sqrt(clx ** 2 + cly ** 2)
 
     for box in next(results).boxes:
-        # pose_pub.publish(pose)
-        if box.conf[0] < 0.6:
+        if box.conf[0] < min_conf:
             continue
 
         x1, y1, x2, y2 = box.xyxy[0]
@@ -118,11 +105,10 @@ def callback(data):
     if not (clx < 0 or cly < 0):
         draw_line(img, clx, cly, math.floor(width / 2), math.floor(height / 2), (0, 0, 255))
 
-    test_pub.publish("fuk ros")
     img_msg = bridge.cv2_to_imgmsg(img, encoding="bgr8")
     img_msg.header.stamp = rospy.Time.now()
-    # img_msg.header.frame_id = args.frame_id
     img_pub.publish(img_msg)
+
     cv2.namedWindow('detect', cv2.WINDOW_AUTOSIZE)
     cv2.imshow('detect', img)
     key = cv2.waitKey(1)
@@ -136,30 +122,3 @@ rospy.init_node('image_detect', anonymous=True)
 rospy.Subscriber("camera/raw", Image, callback)
 
 rospy.spin()
-
-# rospy.init_node('video_publisher', anonymous=True)
-# img_pub = rospy.Publisher('camera/raw', Image, queue_size=10)
-#
-# while not rospy.is_shutdown():
-#     good, img = video.read()
-#     if not good:
-#         print("failed to read image")
-#         continue
-#     cv2.namedWindow('camera', cv2.WINDOW_AUTOSIZE)
-#     cv2.imshow('camera', img)
-#     key = cv2.waitKey(1)
-#
-#     try:
-#         # Publish image.
-#         img_msg = bridge.cv2_to_imgmsg(img, "bgr8")
-#         img_msg.header.stamp = rospy.Time.now()
-#         # img_msg.header.frame_id = args.frame_id
-#         img_pub.publish(img_msg)
-#     except CvBridgeError as err:
-#         print(err)
-#
-#     rate.sleep()
-#
-#     if key == 81 or key == 113 or key == 27:
-#         print("code complete")
-#         exit(0)

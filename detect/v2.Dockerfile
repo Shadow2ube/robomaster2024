@@ -56,7 +56,7 @@ RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 
 # endregion Install ROS noetic
 
-RUN apt-get update && apt-get install -y --no-install-recommends git cmake make \
+RUN apt-get update && apt-get install -y --no-install-recommends git cmake ninja \
     && rm -rf /var/lib/apt/lists/*
 
 # region Install opencvwith cuda
@@ -70,9 +70,6 @@ RUN git clone https://github.com/opencv/opencv && \
 
 WORKDIR /opt/opencv
 
-# TODO: remove this
-RUN ls -lR /opt/opencv && return 1
-
 RUN cmake -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv/opencv_contrib/modules  \
    -DBUILD_SHARED_LIBS=OFF \
    -DBUILD_TESTS=OFF \
@@ -83,9 +80,10 @@ RUN cmake -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv/opencv_contrib/modules  \
    -DWITH_CUBLAS=ON \
    -DWITH_CUDNN=ON \
    -DOPENCV_DNN_CUDA=ON \
+   -GNinja
    /opt/opencv/opencv
 
-RUN make -j4 install
+RUN ninja -j4 install
 
 # endregion
 

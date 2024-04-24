@@ -26,8 +26,8 @@ x-with-gpu: &with_gpu
 services:
   roscore:
     <<: *base_service
-#    image: arm64v8/ros:noetic-ros-core
-    image: osrf/ros:noetic-desktop-full
+    image: arm64v8/ros:noetic-ros-core
+#    image: osrf/ros:noetic-desktop-full
     profiles: [ "core" ]
     command: [ "roscore", "-v" ]
 #    command: [ "sh", "-c", "ROS_MASTER_URI=http://192.168.55.1:11311/ ROS_IP=192.168.55.1 roscore -v" ]
@@ -44,7 +44,7 @@ services:
     <<: *base_service
     build:
       context: .
-      dockerfile: ./detect/Dockerfile
+      dockerfile: ./detect/v2.Dockerfile
     profiles: [ "cpu" ]
     command: [ "python3", "/run/detect/detect/detect_image.py", "-m", "/run/detect/best_1.pt" ]
 

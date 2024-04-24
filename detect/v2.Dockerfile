@@ -70,6 +70,9 @@ RUN git clone https://github.com/opencv/opencv && \
 
 WORKDIR /opt/opencv
 
+# TODO: remove this
+RUN ls -lR /opt/opencv && return 1
+
 RUN cmake -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv/opencv_contrib/modules  \
    -DBUILD_SHARED_LIBS=OFF \
    -DBUILD_TESTS=OFF \

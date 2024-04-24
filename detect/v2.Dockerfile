@@ -74,6 +74,7 @@ RUN apt-get update
 RUN apt-get -y install openjdk-8-jre libvtk7-dev libgflags2.2 vtk7
 
 ENV PATH=${PATH}:/usr/local:/usr/local/cuda-10.2:/usr/local/cuda-10.2/bin
+ENV CUDA_BIN_PATH=/usr/local/cuda-10.2
 
 RUN cmake -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv/opencv_contrib/modules  \
 #   -DBUILD_SHARED_LIBS=OFF \

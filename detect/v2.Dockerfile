@@ -70,7 +70,8 @@ RUN git clone https://github.com/opencv/opencv && \
 
 WORKDIR /opt/opencv/build
 
-RUN apt-get update && apt-get -y install java libvtk-dev
+RUN apt-get update
+RUN apt-get -y install java libvtk-dev
 
 RUN cmake -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv/opencv_contrib/modules  \
 #   -DBUILD_SHARED_LIBS=OFF \

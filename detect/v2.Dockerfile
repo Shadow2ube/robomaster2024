@@ -12,30 +12,48 @@ RUN #ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime
 
 # region Install ROS noetic
 
-RUN apt-get update && apt-get install -q -y --no-install-recommends tzdata && \
-    rm -rf /var/lib/apt/lists/*
+#RUN apt-get update && apt-get install -q -y --no-install-recommends tzdata && \
+#    rm -rf /var/lib/apt/lists/*
+#
+#RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+#
+#RUN echo "deb http://packages.ros.org/ros/ubuntu bionic main" > /etc/apt/sources.list.d/ros1-latest.list
+#
+#RUN apt-get update && apt-get install --no-install-recommends -y \
+#    dirmngr \
+#    gnupg2 \
+#    build-essential \
+#    python-rosdep \
+#    python-rosinstall \
+#    python-vcstools \
+#    && rosdep init  \
+#    && rosdep update --rosdistro ${ROS_DISTRO} \
+#    && rm -rf /var/lib/apt/lists/* \
+#
+#RUN apt-get update && apt-get install -y --no-install-recommends \
+#    ros-noetic-ros-base=1.4.1-0* \
+#    ros-noetic-robot=1.4.1-0* \
+#    && rm -rf /var/lib/apt/lists/*
+#
+#COPY scripts/ros_entrypoint.sh /
 
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+# Minimal setup
+RUN apt-get update \
+ && apt-get install -y locales lsb-release
+ARG DEBIAN_FRONTEND=noninteractive
+RUN dpkg-reconfigure locales
 
-RUN echo "deb http://packages.ros.org/ros/ubuntu bionic main" > /etc/apt/sources.list.d/ros1-latest.list
-
-RUN apt-get update && apt-get install --no-install-recommends -y \
-    dirmngr \
-    gnupg2 \
-    build-essential \
-    python-rosdep \
-    python-rosinstall \
-    python-vcstools \
-    && rosdep init  \
-    && rosdep update --rosdistro ${ROS_DISTRO} \
-    && rm -rf /var/lib/apt/lists/* \
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    ros-noetic-ros-base=1.4.1-0* \
-    ros-noetic-robot=1.4.1-0* \
-    && rm -rf /var/lib/apt/lists/*
-
-COPY scripts/ros_entrypoint.sh /
+# Install ROS Noetic
+RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+RUN apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends ros-noetic-desktop-full
+RUN apt-get install -y --no-install-recommends python3-rosdep
+RUN rosdep init \
+ && rosdep fix-permissions \
+ && rosdep update
+RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
+COPY /opt/ros/noetic/ros_entrypoint.sh /
 
 # endregion Install ROS noetic
 

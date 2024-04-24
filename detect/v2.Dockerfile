@@ -6,8 +6,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
 
-RUN echo 'Etc/UTC' > /etc/timezone
-RUN ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime
+RUN #echo 'Etc/UTC' > /etc/timezone
+RUN #ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime
 
 
 # region Install ROS noetic

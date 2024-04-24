@@ -56,8 +56,7 @@ RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 
 # endregion Install ROS noetic
 
-RUN apt-get update && apt-get install -y --no-install-recommends git cmake ninja-build \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends git cmake make wget
 
 # region Install opencvwith cuda
 
@@ -65,32 +64,36 @@ RUN mkdir -p /opt/opencv/build
 
 WORKDIR /opt/opencv
 
-RUN git clone https://github.com/opencv/opencv && \
-    git clone https://github.com/opencv/opencv_contrib
+RUN wget https://raw.githubusercontent.com/innerlee/setup/master/zzopencv.sh
+RUN chmod +x zzopencv.sh
+RUN ./zzopencv.sh
 
-WORKDIR /opt/opencv/build
-
-RUN apt-get update
-RUN apt-get -y install openjdk-8-jre libvtk7-dev libgflags2.2 vtk7
-
-ENV PATH=${PATH}:/usr/local:/usr/local/cuda-10.2:/usr/local/cuda-10.2/bin
-ENV CUDA_BIN_PATH=/usr/local/cuda-10.2/bin
-RUN ln -s /usr/local/cuda-10.2/ /usr/local/cuda
-
-RUN cmake -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv/opencv_contrib/modules  \
-#   -DBUILD_SHARED_LIBS=OFF \
-   -DBUILD_TESTS=OFF \
-   -DBUILD_PERF_TESTS=OFF \
-   -DBUILD_EXAMPLES=OFF \
-   -DWITH_OPENEXR=OFF \
-   -DWITH_CUDA=ON \
-   -DWITH_CUBLAS=ON \
-   -DWITH_CUDNN=ON \
-   -DOPENCV_DNN_CUDA=ON \
-   -GNinja \
-   /opt/opencv/opencv
-
-RUN ninja -j4 install
+#RUN git clone https://github.com/opencv/opencv && \
+#    git clone https://github.com/opencv/opencv_contrib
+#
+#WORKDIR /opt/opencv/build
+#
+#RUN apt-get update
+#RUN apt-get -y install openjdk-8-jre libvtk7-dev libgflags2.2 vtk7
+#
+#ENV PATH=${PATH}:/usr/local:/usr/local/cuda-10.2:/usr/local/cuda-10.2/bin
+#ENV CUDA_BIN_PATH=/usr/local/cuda-10.2/bin
+#RUN ln -s /usr/local/cuda-10.2/ /usr/local/cuda
+#
+#RUN cmake -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv/opencv_contrib/modules  \
+##   -DBUILD_SHARED_LIBS=OFF \
+#   -DBUILD_TESTS=OFF \
+#   -DBUILD_PERF_TESTS=OFF \
+#   -DBUILD_EXAMPLES=OFF \
+#   -DWITH_OPENEXR=OFF \
+#   -DWITH_CUDA=ON \
+#   -DWITH_CUBLAS=ON \
+#   -DWITH_CUDNN=ON \
+#   -DOPENCV_DNN_CUDA=ON \
+#   -GNinja \
+#   /opt/opencv/opencv
+#
+#RUN ninja -j4 install
 
 # endregion
 

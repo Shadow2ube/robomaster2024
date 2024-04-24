@@ -73,46 +73,48 @@ def callback(data):
     clx, cly = -3000000, -3000000
     distance = math.sqrt(clx ** 2 + cly ** 2)
 
-    for box in next(results).boxes:
-        if box.conf[0] < min_conf:
-            continue
+    # for box in results[0].boxes:
+    for x in results:
+        for box in x.boxes:
+            if box.conf[0] < min_conf:
+                continue
 
-        x1, y1, x2, y2 = box.xyxy[0]
-        x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
+            x1, y1, x2, y2 = box.xyxy[0]
+            x1, y1, x2, y2 = int(x1), int(y1), int(x2), int(y2)
 
-        cx = math.floor((x2 - x1) / 2 + x1)
-        cy = math.floor((y2 - y1) / 2 + y1)
+            cx = math.floor((x2 - x1) / 2 + x1)
+            cy = math.floor((y2 - y1) / 2 + y1)
 
-        dcx = abs(cx - width)
-        dcy = abs(cy - height)
-        d = math.sqrt(dcx ** 2 + dcy ** 2)
-        if d < distance:
-            clx, cly = dcx, dcy
-            distance = d
+            dcx = abs(cx - width)
+            dcy = abs(cy - height)
+            d = math.sqrt(dcx ** 2 + dcy ** 2)
+            if d < distance:
+                clx, cly = cx, cy
+                distance = d
 
-        draw_box(img, x1, y1, x2, y2)
-        draw_circle(img, cx, cy, 4)
-        draw_line(img, cx, cy, math.floor(width / 2), math.floor(height / 2))
-        p = make_pose(cx, cy, 0, 0, 0, 0)
-        poses.poses.append(p)
+            draw_box(img, x1, y1, x2, y2)
+            draw_circle(img, cx, cy, 4)
+            draw_line(img, cx, cy, math.floor(width / 2), math.floor(height / 2))
+            p = make_pose(cx, cy, 0, 0, 0, 0)
+            poses.poses.append(p)
 
-    pose = make_pose(clx, cly, 0, 0, 0, 0)
-    pose_pub.publish(pose)
-    poses_pub.publish(poses)
+        pose = make_pose(clx, cly, 0, 0, 0, 0)
+        pose_pub.publish(pose)
+        poses_pub.publish(poses)
 
-    if not (clx < 0 or cly < 0):
-        draw_line(img, clx, cly, math.floor(width / 2), math.floor(height / 2), (0, 0, 255))
+        if not (clx < 0 or cly < 0):
+            draw_line(img, clx, cly, math.floor(width / 2), math.floor(height / 2), (0, 0, 255))
 
-    img_msg = bridge.cv2_to_imgmsg(img, encoding="bgr8")
-    img_msg.header.stamp = rospy.Time.now()
-    img_pub.publish(img_msg)
+        img_msg = bridge.cv2_to_imgmsg(img, encoding="bgr8")
+        img_msg.header.stamp = rospy.Time.now()
+        img_pub.publish(img_msg)
 
-    cv2.namedWindow('detect', cv2.WINDOW_AUTOSIZE)
-    cv2.imshow('detect', img)
-    key = cv2.waitKey(1)
-    if key == 81 or key == 113 or key == 27:
-        print("code complete")
-        exit(0)
+        cv2.namedWindow('detect', cv2.WINDOW_AUTOSIZE)
+        cv2.imshow('detect', img)
+        key = cv2.waitKey(1)
+        if key == 81 or key == 113 or key == 27:
+            print("code complete")
+            exit(0)
 
 
 print("started")

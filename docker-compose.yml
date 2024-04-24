@@ -28,11 +28,6 @@ services:
     <<: *base_service
 #    image: arm64v8/ros:noetic-ros-core
     image: osrf/ros:noetic-desktop-full
-#    environment:
-#      - ROS_MASTER_URI=http://192.168.55.1:11311/
-#      - ROS_IP=192.168.55.1
-#    network_mode: host
-#    privileged: true
     profiles: [ "core" ]
     command: [ "roscore", "-v" ]
 #    command: [ "sh", "-c", "ROS_MASTER_URI=http://192.168.55.1:11311/ ROS_IP=192.168.55.1 roscore -v" ]
@@ -45,25 +40,17 @@ services:
     profiles: [ "bridge" ]
     command: [ "rosrun", "foxglove_bridge", "foxglove_bridge" ]
 
-  img_detect_gpu: &img_detect_gpu
-    <<: [ *base_service, *with_gpu ]
-    build:
-      context: .
-      dockerfile: ./detect/Dockerfile
-    profiles: [ "gpu" ]
-    command: [ "python3", "/run/detect/detect/detect_image.py", "-m", "/run/detect/best_1.pt" ]
-  #    depends_on:
-#      - roscore
-#      - img_pub
-
-  img_detect:
-#    <<: *img_detect_gpu
+  img_detect: &img_detect
     <<: *base_service
     build:
       context: .
       dockerfile: ./detect/Dockerfile
     profiles: [ "cpu" ]
     command: [ "python3", "/run/detect/detect/detect_image.py", "-m", "/run/detect/best_1.pt" ]
+
+  img_detect_gpu:
+    <<: [ *img_detect, *with_gpu ]
+    profiles: [ "gpu" ]
 
   img_pub:
     <<: *base_service

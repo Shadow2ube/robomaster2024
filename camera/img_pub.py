@@ -4,8 +4,6 @@
 
 import argparse
 
-import numpy as np
-
 import cv2
 
 import rospy
@@ -31,11 +29,12 @@ video.set(3, 1280)  # width
 video.set(4, 720)  # height
 
 rospy.init_node('camera', anonymous=True)
-img_pub = rospy.Publisher('camera/raw', Image, queue_size=10)
+img_pub = rospy.Publisher('camera/raw', Image, queue_size=2)
 # info_pub = rospy.Publisher('camera/info', CameraInfo, queue_size=10)
 
-fps = video.get(cv2.CAP_PROP_FPS)
-rate = rospy.Rate(fps) if fps > 0 else 30
+# fps = video.get(cv2.CAP_PROP_FPS)
+# rate = rospy.Rate(fps) if fps > 0 else 30
+rate = rospy.Rate(60)
 bridge = CvBridge()
 print(rate)
 
@@ -50,12 +49,10 @@ while not rospy.is_shutdown():
         continue
 
     try:
-        # Publish image.
         img_msg = bridge.cv2_to_imgmsg(img, encoding="bgr8")
         img_msg.header.stamp = rospy.Time.now()
-        # img_msg.header.frame_id = args.frame_id
         img_pub.publish(img_msg)
     except CvBridgeError as err:
         print(err)
 
-    # rate.sleep()
+    rate.sleep()

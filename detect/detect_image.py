@@ -5,13 +5,17 @@ Publishes where things are to /objects/found
 """
 
 import argparse
+import itertools
 import math
 
 import numpy as np
 
 import cv2
 
+from multiprocessing import Process
+
 import rospy
+import ultralytics
 
 from sensor_msgs.msg import Image
 from geometry_msgs.msg import Pose, PoseArray, Vector3
@@ -33,7 +37,7 @@ model = YOLO(args.model)
 print("Done!")
 
 
-def draw_box(image, x: int, y: int, xe: int, ye: int, title: str = ''):
+def draw_box(image, x: int, y: int, xe: int, ye: int):
     cv2.rectangle(image, (x, y), (xe, ye), (0, 255, 0), thickness=1)
 
     # if title != '':
@@ -53,6 +57,17 @@ pose_pub = rospy.Publisher('objects/found/closest', Pose, queue_size=1)
 poses_pub = rospy.Publisher('objects/found/all', PoseArray, queue_size=1)
 img_pub = rospy.Publisher('camera/boxes', Image, queue_size=10)
 test_pub = rospy.Publisher('test', String, queue_size=10)
+
+
+def make_pose(x, y, z, ax, ay, az) -> Pose:
+    p = Pose()
+    p.position.x = x
+    p.position.y = y
+    p.position.z = z
+    p.orientation.x = ax
+    p.orientation.y = ay
+    p.orientation.z = az
+    return p
 
 
 def callback(data):
@@ -93,28 +108,17 @@ def callback(data):
         draw_box(img, x1, y1, x2, y2)
         draw_circle(img, cx, cy, 4)
         draw_line(img, cx, cy, math.floor(width / 2), math.floor(height / 2))
-        p = Pose()
-        p.position.x = clx
-        p.position.y = cly
-        p.position.z = 0
-        p.orientation.x = 0
-        p.orientation.y = 0
-        p.orientation.z = 0
+        p = make_pose(clx, cly, 0, 0, 0, 0)
         poses.poses.append(p)
 
-    pose = Pose()
-    pose.position.x = clx
-    pose.position.y = cly
-    pose.position.z = 0
-    pose.orientation.x = 0
-    pose.orientation.y = 0
-    pose.orientation.z = 0
+    pose = make_pose(clx, cly, 0, 0, 0, 0)
     pose_pub.publish(pose)
     poses_pub.publish(poses)
 
     if not (clx < 0 or cly < 0):
         draw_line(img, clx, cly, math.floor(width / 2), math.floor(height / 2), (0, 0, 255))
 
+    test_pub.publish("fuk ros")
     img_msg = bridge.cv2_to_imgmsg(img, encoding="bgr8")
     img_msg.header.stamp = rospy.Time.now()
     # img_msg.header.frame_id = args.frame_id

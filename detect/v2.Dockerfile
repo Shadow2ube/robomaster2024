@@ -80,7 +80,7 @@ RUN cmake -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv/opencv_contrib/modules  \
    -DWITH_CUBLAS=ON \
    -DWITH_CUDNN=ON \
    -DOPENCV_DNN_CUDA=ON \
-   -GNinja
+   -GNinja \
    /opt/opencv/opencv
 
 RUN ninja -j4 install

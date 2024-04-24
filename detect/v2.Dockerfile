@@ -1,4 +1,4 @@
-FROM osrf/ros:noetic-desktop-full
+#FROM osrf/ros:noetic-desktop-full
 #FROM arm64v8/ros:noetic-ros-core
 FROM nvcr.io/nvidia/l4t-base:r35.1.0
 
@@ -6,8 +6,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
 
-RUN echo 'Etc/UTC' > /etc/timezone && \
-    ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime
+RUN echo 'Etc/UTC' > /etc/timezone
+RUN ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime
 
 
 # region Install ROS noetic

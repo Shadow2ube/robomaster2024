@@ -108,7 +108,7 @@ def callback(data):
         draw_box(img, x1, y1, x2, y2)
         draw_circle(img, cx, cy, 4)
         draw_line(img, cx, cy, math.floor(width / 2), math.floor(height / 2))
-        p = make_pose(clx, cly, 0, 0, 0, 0)
+        p = make_pose(cx, cy, 0, 0, 0, 0)
         poses.poses.append(p)
 
     pose = make_pose(clx, cly, 0, 0, 0, 0)

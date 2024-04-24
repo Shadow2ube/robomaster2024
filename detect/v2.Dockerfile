@@ -68,7 +68,7 @@ WORKDIR /opt/opencv
 RUN git clone https://github.com/opencv/opencv && \
     git clone https://github.com/opencv/opencv_contrib
 
-WORKDIR /opt/opencv
+WORKDIR /opt/opencv/build
 
 RUN cmake -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv/opencv_contrib/modules  \
    -DBUILD_SHARED_LIBS=OFF \

@@ -71,7 +71,8 @@ RUN git clone https://github.com/opencv/opencv && \
 WORKDIR /opt/opencv/build
 
 RUN apt-get update
-RUN apt-get -y install openjdk-8-jre libvtk6.3
+ENV PATH=${PATH}:/usr/local:/usr/local/cuda-10.2:/usr/loca/cuda-10.2/bin
+RUN apt-get -y install openjdk-8-jre libvtk6.3 libgflags2.2 vtk6
 
 RUN cmake -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv/opencv_contrib/modules  \
 #   -DBUILD_SHARED_LIBS=OFF \

@@ -56,7 +56,7 @@ RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 
 # endregion Install ROS noetic
 
-RUN apt-get update && apt-get install -y --no-install-recommends git cmake ninja \
+RUN apt-get update && apt-get install -y --no-install-recommends git cmake ninja-build \
     && rm -rf /var/lib/apt/lists/*
 
 # region Install opencvwith cuda

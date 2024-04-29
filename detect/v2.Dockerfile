@@ -100,6 +100,8 @@ RUN mkdir -p /opt/detect
 
 RUN apt-get -y install python3-opencv
 
+ENV PATH=${PATH}:/home/dockeruser/.local/bin
+
 USER dockeruser
 
 WORKDIR "/home/dockeruser"

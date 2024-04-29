@@ -46,7 +46,12 @@ services:
       context: .
       dockerfile: ./detect/v2.Dockerfile
     profiles: [ "cpu" ]
-    command: [ "python3", "/run/detect/detect/detect_image.py", "-m", "/run/detect/best_1.pt" ]
+    command: [
+      "python3", "/run/detect/detect/detect_image.py",
+      "-m", "/run/detect/best_1.pt",
+      "-c", "0.6",
+      "-i", "camera/raw"
+    ]
 
   img_detect_gpu:
     <<: [ *img_detect, *with_gpu ]

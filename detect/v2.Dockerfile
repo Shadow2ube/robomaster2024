@@ -9,33 +9,7 @@ ENV LC_ALL=C.UTF-8
 RUN #echo 'Etc/UTC' > /etc/timezone
 RUN #ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime
 
-
-# region Install ROS noetic
-
-#RUN apt-get update && apt-get install -q -y --no-install-recommends tzdata && \
-#    rm -rf /var/lib/apt/lists/*
-#
-#RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
-#
-#RUN echo "deb http://packages.ros.org/ros/ubuntu bionic main" > /etc/apt/sources.list.d/ros1-latest.list
-#
-#RUN apt-get update && apt-get install --no-install-recommends -y \
-#    dirmngr \
-#    gnupg2 \
-#    build-essential \
-#    python-rosdep \
-#    python-rosinstall \
-#    python-vcstools \
-#    && rosdep init  \
-#    && rosdep update --rosdistro ${ROS_DISTRO} \
-#    && rm -rf /var/lib/apt/lists/* \
-#
-#RUN apt-get update && apt-get install -y --no-install-recommends \
-#    ros-noetic-ros-base=1.4.1-0* \
-#    ros-noetic-robot=1.4.1-0* \
-#    && rm -rf /var/lib/apt/lists/*
-#
-#COPY scripts/ros_entrypoint.sh /
+# region ROS install
 
 # Minimal setup
 RUN apt-get update \
@@ -67,6 +41,8 @@ WORKDIR /opt/opencv
 RUN wget https://raw.githubusercontent.com/innerlee/setup/master/zzopencv.sh
 RUN chmod +x zzopencv.sh
 RUN ./zzopencv.sh
+
+# endregion ROS install
 
 #RUN git clone https://github.com/opencv/opencv && \
 #    git clone https://github.com/opencv/opencv_contrib

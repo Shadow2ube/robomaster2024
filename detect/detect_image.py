@@ -20,8 +20,9 @@ from cv_bridge import CvBridge, CvBridgeError
 parser = argparse.ArgumentParser(
     prog='detect_image',
     description='Looks for objects in an image from /camera/raw and publishes them')
-parser.add_argument('-m', '--model', default=-1, type=str)
-parser.add_argument('-c', '--min_conf', default=0.6, type=int)
+parser.add_argument('-m', '--model', type=str, default=-1, help='The location of the model')
+parser.add_argument('-c', '--min_conf', type=int, default=0.6, help='The minimum confidence for a positive hit')
+parser.add_argument('-i', '--input_topic', type=str, default='camera/raw', help='The RGB topic of the camera input')
 
 args = parser.parse_args()
 min_conf = args.min_conf
@@ -47,7 +48,6 @@ def draw_line(image, x1, y1, x2, y2, color=(255, 0, 0)):
 pose_pub = rospy.Publisher('objects/found/closest', Pose, queue_size=1)
 poses_pub = rospy.Publisher('objects/found/all', PoseArray, queue_size=1)
 img_pub = rospy.Publisher('camera/boxes', Image, queue_size=10)
-test_pub = rospy.Publisher('test', String, queue_size=10)
 
 
 def make_pose(x, y, z, ax, ay, az) -> Pose:
@@ -119,6 +119,6 @@ def callback(data):
 
 print("started")
 rospy.init_node('image_detect', anonymous=True)
-rospy.Subscriber("camera/raw", Image, callback)
+rospy.Subscriber(args.input_topic, Image, callback)
 
 rospy.spin()

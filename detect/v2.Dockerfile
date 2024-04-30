@@ -66,7 +66,7 @@ RUN apt-get -y install ros-noetic-std-msgs
 RUN mkdir -p /root/test
 RUN mkdir -p /opt/detect
 
-RUN apt-get -y install python3-opencv
+RUN #apt-get -y install python3-opencv
 
 ENV PATH=${PATH}:/home/dockeruser/.local/bin
 

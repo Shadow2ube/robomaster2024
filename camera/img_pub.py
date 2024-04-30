@@ -21,7 +21,7 @@ parser.add_argument('-f', '--file', default=-1, type=str)
 args = parser.parse_args()
 
 if args.file.isdigit():
-    video = cv2.VideoCapture(0, cv2.CAP_V4L2)
+    video = cv2.VideoCapture(int(args.file), cv2.CAP_V4L2)
 else:
     video = cv2.VideoCapture(args.file)
 

@@ -85,8 +85,8 @@ services:
       "roslaunch", "realsense2_camera", "rs_camera.launch",
       "depth_module.depth_profile:=1280x720x30",
       "pointcloud.enable:=true",
-      "spatial_filter.enable:=true",
-      "temporal_filter.enable:=true"
+#      "spatial_filter.enable:=true",
+#      "temporal_filter.enable:=true"
     ]
 
     depends_on:

@@ -35,7 +35,7 @@ RUN apt-get install -y build-essential
 
 # region Install opencvwith cuda
 
-ENV PATH=${PATH}:/usr/local/cuda-10.2/bin
+ENV PATH=${PATH}:/usr/local/cuda-10.2/bin/
 RUN mkdir -p /opt/opencv/build
 
 WORKDIR /opt/opencv
@@ -55,12 +55,13 @@ USER dockeruser
 
 RUN pip3 install ultralytics
 RUN pip3 install --upgrade numpy
-RUN #pip3 install opencv-python
 RUN pip3 install pyrealsense2
 RUN pip3 install rospy2
 RUN pip3 install cv-bridge
 
 USER root
+
+RUN rm -r /home/dockeruser/.local/lib/python3.8/site-packages/cv2/
 
 RUN apt-get -y install libgl1-mesa-glx libglib2.0-dev
 RUN apt-get -y install ros-noetic-std-msgs

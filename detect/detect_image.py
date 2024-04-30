@@ -21,11 +21,11 @@ parser = argparse.ArgumentParser(
     prog='detect_image',
     description='Looks for objects in an image from /camera/raw and publishes them')
 parser.add_argument('-m', '--model', type=str, default=-1, help='The location of the model')
-parser.add_argument('-c', '--min_conf', type=str, default=0.6, help='The minimum confidence for a positive hit')
+parser.add_argument('-c', '--min_conf', type=float, default=0.6, help='The minimum confidence for a positive hit')
 parser.add_argument('-i', '--input_topic', type=str, default='camera/raw', help='The RGB topic of the camera input')
 
 args = parser.parse_args()
-min_conf = int(args.min_conf)
+min_conf = args.min_conf
 
 bridge = CvBridge()
 print("Loading model...", end='')

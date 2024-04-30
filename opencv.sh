@@ -77,9 +77,9 @@ cmake \
     -D BUILD_JAVA=OFF \
     -D BUILD_opencv_python2=OFF \
     -D BUILD_NEW_PYTHON_SUPPORT=ON \
-    -D BUILD_opencv_python3=OFF \
-    -D HAVE_opencv_python3=OFF \
-    -D PYTHON_DEFAULT_EXECUTABLE="$(which python)" \
+    -D BUILD_opencv_python3=ON \
+    -D HAVE_opencv_python3=ON \
+    -D PYTHON_DEFAULT_EXECUTABLE="$(which python3)" \
     -D WITH_OPENGL=ON \
     -D WITH_VTK=OFF \
     -D FORCE_VTK=OFF \

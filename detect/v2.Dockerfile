@@ -102,7 +102,7 @@ RUN apt-get -y install python3-opencv
 
 ENV PATH=${PATH}:/home/dockeruser/.local/bin
 
-RUN echo "#!/bin/bash\nset -e\nsource /opt/ros/noetic/setup.bash --\nexec \"\$@\"" > entrypoint.sh
+RUN echo "#!/bin/bash\nset -e\nsource /opt/ros/noetic/setup.bash --\nexec \"\$@\"" > /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 USER dockeruser

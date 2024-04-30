@@ -31,9 +31,11 @@ RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 # endregion Install ROS noetic
 
 RUN apt-get update && apt-get install -y --no-install-recommends git cmake make wget
+RUN apt-get install -y build-essential
 
 # region Install opencvwith cuda
 
+ENV PATH=${PATH}:/usr/local/cuda/bin
 RUN mkdir -p /opt/opencv/build
 
 WORKDIR /opt/opencv

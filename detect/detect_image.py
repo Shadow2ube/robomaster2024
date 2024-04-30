@@ -62,8 +62,7 @@ def make_pose(x, y, z, ax, ay, az) -> Pose:
 
 
 def callback(data):
-    global pose_pub, img_pub, test_pub
-    test_pub.publish(str(rospy.Time.now()))
+    global pose_pub, img_pub
     img = bridge.imgmsg_to_cv2(data, desired_encoding="bgr8")
     results = model(img, stream=True, verbose=False)
 

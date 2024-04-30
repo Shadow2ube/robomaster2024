@@ -44,9 +44,9 @@ USER root
 #RUN chmod +x ./libuvc_installation.sh
 #RUN ./libuvc_installation.sh
 
-USER dockeruser
 ARG GROUP_ID=44
 RUN groupmod --gid ${GROUP_ID} video
+USER dockeruser
 
 WORKDIR "/home/dockeruser"
 

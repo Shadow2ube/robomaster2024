@@ -39,7 +39,7 @@ RUN mkdir -p /opt/opencv/build
 WORKDIR /opt/opencv
 
 RUN wget https://raw.githubusercontent.com/Shadow2ube/robomaster2024/main/opencv.sh
-RUN chmod +x zzopencv.sh
+RUN chmod +x opencv.sh
 RUN ./opencv.sh
 
 RUN apt-get -y install pip

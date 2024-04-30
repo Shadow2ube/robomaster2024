@@ -27,7 +27,7 @@ services:
   roscore:
     <<: *base_service
     image: arm64v8/ros:noetic-ros-core
-#    image: osrf/ros:noetic-desktop-full
+    #    image: osrf/ros:noetic-desktop-full
     profiles: [ "core" ]
     command: [ "roscore", "-v" ]
     healthcheck:
@@ -68,7 +68,7 @@ services:
       dockerfile: ./camera/Dockerfile
     profiles: [ "webcam" ]
     privileged: true
-#    command: [ "python3", "/run/detect/camera/img_pub.py", "-f", "/run/detect/videos/UW vs UCSD Group A BO2  _ 2022 RoboMaster University League North America.mp4" ]
+    #    command: [ "python3", "/run/detect/camera/img_pub.py", "-f", "/run/detect/videos/UW vs UCSD Group A BO2  _ 2022 RoboMaster University League North America.mp4" ]
     command: [ "python3", "/run/detect/camera/img_pub.py", "-f", "0" ]
     depends_on:
       roscore:
@@ -81,7 +81,15 @@ services:
       dockerfile: ./realsense/Dockerfile
     profiles: [ "realsense" ]
     privileged: true
-    command: [ "roslaunch", "realsense2_camera", "rs_camera.launch", "depth_module.depth_profile:=1280x720x30", "pointcloud.enable:=true" ]
+    command: [
+      "roslaunch", "realsense2_camera", "rs_camera.launch",
+      "depth_module.depth_profile:=1280x720x30",
+      "pointcloud.enable:=true",
+      "depth_module.emitter_enabled",
+      "spatial_filter.enable:=true",
+      "temporal_filter.enable:=true"
+    ]
+
     depends_on:
       roscore:
         condition: service_healthy

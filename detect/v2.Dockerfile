@@ -107,6 +107,7 @@ RUN chmod +x /entrypoint.sh
 
 USER dockeruser
 
+RUN pip3 install --upgrade numpy
 WORKDIR "/home/dockeruser"
 
 ENTRYPOINT ["/entrypoint.sh"]

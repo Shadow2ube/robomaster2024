@@ -87,6 +87,7 @@ services:
       "pointcloud.enable:=true",
 #      "spatial_filter.enable:=true",
 #      "temporal_filter.enable:=true"
+      "initial_reset:=true",
     ]
 
     depends_on:

@@ -53,7 +53,7 @@ USER dockeruser
 
 RUN pip3 install ultralytics
 RUN pip3 install --upgrade numpy
-RUN pip3 install opencv-python
+RUN #pip3 install opencv-python
 RUN pip3 install pyrealsense2
 RUN pip3 install rospy2
 RUN pip3 install cv-bridge

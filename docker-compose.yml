@@ -75,7 +75,7 @@ services:
       dockerfile: ./realsense/Dockerfile
     profiles: [ "realsense" ]
     privileged: true
-    command: [ "roslaunch", "realsense2_camera", "rs_launch.py", "depth_module.depth_profile:=1280x720x30", "pointcloud.enable:=true" ]
+    command: [ "roslaunch", "realsense2_camera", "rs_camera.launch", "depth_module.depth_profile:=1280x720x30", "pointcloud.enable:=true" ]
     depends_on:
       - roscore
 

@@ -30,6 +30,11 @@ services:
 #    image: osrf/ros:noetic-desktop-full
     profiles: [ "core" ]
     command: [ "roscore", "-v" ]
+    healthcheck:
+      test: [ "CMD", "rostopic", "list" ]
+      interval: 2s
+      timeout: 1s
+      retries: 5
 
   bridge:
     <<: *base_service
@@ -66,7 +71,8 @@ services:
 #    command: [ "python3", "/run/detect/camera/img_pub.py", "-f", "/run/detect/videos/UW vs UCSD Group A BO2  _ 2022 RoboMaster University League North America.mp4" ]
     command: [ "python3", "/run/detect/camera/img_pub.py", "-f", "0" ]
     depends_on:
-      - roscore
+      roscore:
+        condition: service_healthy
 
   realsense:
     <<: *base_service
@@ -77,5 +83,6 @@ services:
     privileged: true
     command: [ "roslaunch", "realsense2_camera", "rs_camera.launch", "depth_module.depth_profile:=1280x720x30", "pointcloud.enable:=true" ]
     depends_on:
-      - roscore
+      roscore:
+        condition: service_healthy
 

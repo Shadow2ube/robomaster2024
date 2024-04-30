@@ -32,8 +32,8 @@ services:
     command: [ "roscore", "-v" ]
     healthcheck:
       test: [ "CMD", "rostopic", "list" ]
-      interval: 2s
-      timeout: 1s
+      interval: 10s
+      timeout: 5s
       retries: 5
 
   bridge:

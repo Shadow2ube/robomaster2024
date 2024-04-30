@@ -46,6 +46,7 @@ cmake \
     -D CMAKE_BUILD_TYPE=RELEASE \
     -D BUILD_EXAMPLES=OFF \
     -D WITH_QT=OFF \
+  -D WITH_GTK=OFF \
     -D CUDA_GENERATION=Auto \
     -D OpenGL_GL_PREFERENCE=GLVND \
     -D BUILD_opencv_hdf=OFF \
@@ -75,13 +76,14 @@ cmake \
     -D BUILD_opencv_dnn_modern=OFF \
     -D BUILD_opencv_dnns_easily_fooled=OFF \
     -D BUILD_JAVA=OFF \
-    -D BUILD_opencv_python2=OFF \
     -D BUILD_NEW_PYTHON_SUPPORT=ON \
+    -D BUILD_opencv_python2=OFF \
     -D BUILD_opencv_python3=ON \
     -D HAVE_opencv_python3=ON \
     -D PYTHON_DEFAULT_EXECUTABLE="$(which python3)" \
     -D WITH_OPENGL=ON \
     -D WITH_VTK=OFF \
+    -D BUILD_opencv_viz=OFF \
     -D FORCE_VTK=OFF \
     -D WITH_TBB=ON \
     -D WITH_GDAL=ON \
@@ -92,6 +94,10 @@ cmake \
     -D MKL_USE_MULTITHREAD=ON \
     -D OPENCV_ENABLE_NONFREE=ON \
     -D WITH_CUDA=ON \
+  -D WITH_CUDNN=ON \
+  -D CUDA_ARCH_BIN="5.3,6.2,7.2" \
+  -D CUDA_ARCH_PTX="" \
+  -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.2 \
     -D NVCC_FLAGS_EXTRA="--default-stream per-thread" \
     -D WITH_NVCUVID=OFF \
     -D BUILD_opencv_cudacodec=OFF \
@@ -103,10 +109,11 @@ cmake \
     -D CMAKE_INSTALL_PREFIX=$(python3 -c "import sys; print(sys.prefix)") \
     -D OPENCV_GENERATE_PKGCONFIG=ON \
     -D OPENCV_PC_FILE_NAME=opencv.pc \
-    -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \
+  -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-${OPENCV_VERSION}/modules \
     -D INSTALL_PYTHON_EXAMPLES=ON \
     -D INSTALL_C_EXAMPLES=ON \
     -D WITH_V4L=ON \
+  -D WITH_LIBV4L=ON \
     -D WITH_GSTREAMER=ON \
     -D OPENCV_PYTHON3_INSTALL_PATH=$(python3 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
     -D PYTHON_EXECUTABLE=$(which python3) \

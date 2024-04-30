@@ -35,7 +35,7 @@ RUN apt-get install -y build-essential
 
 # region Install opencvwith cuda
 
-ENV PATH=${PATH}:/usr/local/cuda/bin
+ENV PATH=${PATH}:/usr/local/cuda-10.2/bin
 RUN mkdir -p /opt/opencv/build
 
 WORKDIR /opt/opencv

@@ -38,43 +38,11 @@ RUN mkdir -p /opt/opencv/build
 
 WORKDIR /opt/opencv
 
-RUN wget https://raw.githubusercontent.com/innerlee/setup/master/zzopencv.sh
+RUN wget https://raw.githubusercontent.com/Shadow2ube/robomaster2024/main/opencv.sh
 RUN chmod +x zzopencv.sh
-RUN ./zzopencv.sh
-
-# endregion ROS install
-
-#RUN git clone https://github.com/opencv/opencv && \
-#    git clone https://github.com/opencv/opencv_contrib
-#
-#WORKDIR /opt/opencv/build
-#
-#RUN apt-get update
-#RUN apt-get -y install openjdk-8-jre libvtk7-dev libgflags2.2 vtk7
-#
-#ENV PATH=${PATH}:/usr/local:/usr/local/cuda-10.2:/usr/local/cuda-10.2/bin
-#ENV CUDA_BIN_PATH=/usr/local/cuda-10.2/bin
-#RUN ln -s /usr/local/cuda-10.2/ /usr/local/cuda
-#
-#RUN cmake -DOPENCV_EXTRA_MODULES_PATH=/opt/opencv/opencv_contrib/modules  \
-##   -DBUILD_SHARED_LIBS=OFF \
-#   -DBUILD_TESTS=OFF \
-#   -DBUILD_PERF_TESTS=OFF \
-#   -DBUILD_EXAMPLES=OFF \
-#   -DWITH_OPENEXR=OFF \
-#   -DWITH_CUDA=ON \
-#   -DWITH_CUBLAS=ON \
-#   -DWITH_CUDNN=ON \
-#   -DOPENCV_DNN_CUDA=ON \
-#   -GNinja \
-#   /opt/opencv/opencv
-#
-#RUN ninja -j4 install
-
-# endregion
+RUN ./opencv.sh
 
 RUN apt-get -y install pip
-
 
 RUN groupmod --gid 985 video
 RUN useradd -m --uid 1000 dockeruser
@@ -84,7 +52,7 @@ RUN chown dockeruser /opt/extra
 USER dockeruser
 
 RUN pip3 install ultralytics
-RUN pip3 install numpy
+RUN pip3 install --upgrade numpy
 RUN pip3 install opencv-python
 RUN pip3 install pyrealsense2
 RUN pip3 install rospy2
@@ -107,7 +75,6 @@ RUN chmod +x /entrypoint.sh
 
 USER dockeruser
 
-RUN pip3 install --upgrade numpy
 WORKDIR "/home/dockeruser"
 
 ENTRYPOINT ["/entrypoint.sh"]

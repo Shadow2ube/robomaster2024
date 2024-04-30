@@ -31,7 +31,7 @@ services:
     profiles: [ "core" ]
     command: [ "roscore", "-v" ]
     healthcheck:
-      test: curl -f http://localhost:11311 || exit 1
+      test: curl -f --silent localhost:11311; [ "$?" == 7 ]; echo $?
       interval: 10s
       timeout: 5s
       retries: 5

@@ -31,7 +31,7 @@ services:
     profiles: [ "core" ]
     command: [ "roscore", "-v" ]
     healthcheck:
-      test: [ "CMD", "rostopic", "list" ]
+      test: [ "CMD", "ROS_MASTER_URI=${ROS_MASTER_URI}", "ROS_IP=${ROS_IP}", "rostopic", "list" ]
       interval: 10s
       timeout: 5s
       retries: 5

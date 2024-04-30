@@ -30,7 +30,6 @@ services:
 #    image: osrf/ros:noetic-desktop-full
     profiles: [ "core" ]
     command: [ "roscore", "-v" ]
-#    command: [ "sh", "-c", "ROS_MASTER_URI=http://192.168.55.1:11311/ ROS_IP=192.168.55.1 roscore -v" ]
 
   bridge:
     <<: *base_service
@@ -68,3 +67,15 @@ services:
     command: [ "python3", "/run/detect/camera/img_pub.py", "-f", "0" ]
     depends_on:
       - roscore
+
+  realsense:
+    <<: *base_service
+    build:
+      context: .
+      dockerfile: ./realsense/Dockerfile
+    profiles: [ "realsense" ]
+    privileged: true
+    command: [ "roslaunch", "realsense2_camera", "rs_launch.py", "depth_module.depth_profile:=1280x720x30", "pointcloud.enable:=true" ]
+    depends_on:
+      - roscore
+

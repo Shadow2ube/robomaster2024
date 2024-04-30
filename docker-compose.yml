@@ -82,7 +82,7 @@ services:
     profiles: [ "realsense" ]
     privileged: true
     command: [
-      "roslaunch", "realsense2_camera", "rs_camera.launch",
+      "roslaunch", "realsense2_camera", "rs_rgbd.launch",
       "depth_module.depth_profile:=1280x720x30",
       "pointcloud.enable:=true",
 #      "spatial_filter.enable:=true",

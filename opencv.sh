@@ -42,6 +42,56 @@ cd build
 
 export PKG_CONFIG_PATH="$ROOTDIR"/lib/pkgconfig:$PKG_CONFIG_PATH
 
+apt-get install -y --no-install-recommends \
+  python3-pip \
+  python3-distutils \
+  python3-dev \
+  python3-setuptools \
+  python3-matplotlib \
+  build-essential \
+  gfortran \
+  git \
+  cmake \
+  curl \
+  unzip \
+  vim \
+  gnupg \
+  libopencv-dev \
+  libopenblas-dev \
+  liblapack-dev \
+  libblas-dev \
+  libhdf5-serial-dev \
+  hdf5-tools \
+  libhdf5-dev \
+  zlib1g-dev \
+  zip \
+  pkg-config \
+  libavcodec-dev \
+  libavformat-dev \
+  libswscale-dev \
+  libtbb2 \
+  libtbb-dev \
+  libjpeg-dev \
+  libpng-dev \
+  libtiff-dev \
+  libv4l-dev \
+  v4l-utils \
+  libdc1394-22-dev \
+
+  libgstreamer1.0-dev \
+  libgstreamer-plugins-base1.0-dev \
+
+  libgtk2.0-dev \
+  libjpeg8-dev \
+  libopenmpi-dev \
+  openmpi-bin \
+  openmpi-common \
+  protobuf-compiler \
+  libprotoc-dev \
+  llvm-9 \
+  llvm-9-dev \
+  && apt-get -y purge *libopencv*
+
 cmake cmake \
   -D CMAKE_BUILD_TYPE=RELEASE \
   -D CMAKE_INSTALL_PREFIX=/usr/local/opencv \

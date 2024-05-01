@@ -52,8 +52,6 @@ RUN pip3 install --upgrade numpy
 
 USER root
 
-RUN rm -r /home/dockeruser/.local/lib/python3.8/site-packages/cv2/
-
 RUN apt-get -y install libgl1-mesa-glx libglib2.0-dev
 RUN apt-get -y install ros-noetic-std-msgs
 

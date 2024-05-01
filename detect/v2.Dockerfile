@@ -126,7 +126,7 @@ RUN apt-get install -y --no-install-recommends \
   llvm-9-dev \
   && apt-get -y purge *libopencv*
 
-RUN cmake \
+RUN PATH=${PATH}:/usr/local/cuda-10.2/bin cmake \
   -D CMAKE_BUILD_TYPE=RELEASE \
   -D CMAKE_INSTALL_PREFIX=/usr \
   -D OPENCV_GENERATE_PKGCONFIG=ON \
@@ -145,6 +145,7 @@ RUN cmake \
   -D CUDA_FAST_MATH=1 \
   -D CUDA_ARCH_BIN="5.3,6.2,7.2" \
   -D CUDA_ARCH_PTX="" \
+  -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.2 \
   -D BUILD_EXAMPLES=OFF \
   -D BUILD_TESTS=OFF \
   -D BUILD_PERF_TESTS=OFF \

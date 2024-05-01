@@ -147,6 +147,10 @@ RUN cmake \
   -D BUILD_opencv_viz=OFF \
   -D BUILD_opencv_python2=OFF \
   -D BUILD_opencv_python3=ON \
+  -D HAVE_opencv_python3=ON \
+  -D BUILD_NEW_PYTHON_SUPPORT=ON \
+  -D OPENCV_PYTHON3_INSTALL_PATH=$(python3 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
+  -D PYTHON_EXECUTABLE=$(which python2) \
   ..
 
 RUN make -j4

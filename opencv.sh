@@ -96,7 +96,7 @@ cmake cmake \
   -D CMAKE_BUILD_TYPE=RELEASE \
   -D CMAKE_INSTALL_PREFIX=/usr/local/opencv \
   -D OPENCV_GENERATE_PKGCONFIG=ON \
-  -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib-${OPENCV_VERSION}/modules \
+  -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \
   -D WITH_VTK=OFF \
   -D WITH_QT=OFF \
   -D WITH_GTK=OFF \

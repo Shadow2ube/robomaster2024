@@ -69,9 +69,13 @@ RUN apt-get -y install ros-noetic-std-msgs
 RUN mkdir -p /root/test
 RUN mkdir -p /opt/detect
 
-RUN #apt-get -y install python3-opencv
-
 ENV PATH=${PATH}:/home/dockeruser/.local/bin
+
+WORKDIR /opt/opencv
+
+RUN wget https://raw.githubusercontent.com/Shadow2ube/robomaster2024/main/opencv.sh
+RUN chmod +x opencv.sh
+RUN ./opencv.sh
 
 RUN echo "#!/bin/bash\nset -e\nsource /opt/ros/noetic/setup.bash --\nexec \"\$@\"" > /entrypoint.sh
 RUN chmod +x /entrypoint.sh

@@ -123,7 +123,7 @@ RUN apt-get install -y --no-install-recommends \
   protobuf-compiler \
   libprotoc-dev \
   llvm-9 \
-  llvm-9-dev \
+  llvm-9-dev
 
 RUN cmake \
   -D CMAKE_BUILD_TYPE=RELEASE \

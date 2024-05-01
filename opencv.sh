@@ -54,7 +54,6 @@ apt-get install -y --no-install-recommends \
   cmake \
   curl \
   unzip \
-  vim \
   gnupg \
   libopencv-dev \
   libopenblas-dev \

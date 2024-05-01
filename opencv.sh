@@ -90,9 +90,11 @@ apt-get install -y --no-install-recommends \
   libprotoc-dev \
   llvm-9 \
   llvm-9-dev \
+  ninja-build \
   && apt-get -y purge *libopencv*
 
 cmake cmake \
+  -G Ninja \
   -D CMAKE_BUILD_TYPE=RELEASE \
   -D CMAKE_INSTALL_PREFIX=/usr/local/opencv \
   -D OPENCV_GENERATE_PKGCONFIG=ON \
@@ -176,7 +178,7 @@ cmake cmake \
 #  -D PYTHON_EXECUTABLE=$(which python3) \
 #    ..
 
-make -j"$(nproc)" && make install
+ninja -j4 && ninja install
 
 echo "$NAME1" installed on "$ROOTDIR"
 echo add following line to .zshrc

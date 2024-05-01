@@ -33,16 +33,6 @@ RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc
 RUN apt-get update && apt-get install -y --no-install-recommends git cmake make wget
 RUN apt-get install -y build-essential
 
-# region Install opencvwith cuda
-
-ENV PATH=${PATH}:/usr/local/cuda-10.2/bin/
-RUN mkdir -p /opt/opencv/build
-
-WORKDIR /opt/opencv
-
-RUN wget https://raw.githubusercontent.com/Shadow2ube/robomaster2024/main/opencv.sh
-RUN chmod +x opencv.sh
-RUN ./opencv.sh
 
 RUN apt-get -y install pip
 
@@ -69,13 +59,18 @@ RUN apt-get -y install ros-noetic-std-msgs
 RUN mkdir -p /root/test
 RUN mkdir -p /opt/detect
 
-ENV PATH=${PATH}:/home/dockeruser/.local/bin
+ENV PATH=${PATH}:/home/dockeruser/.local/bin:/usr/local/cuda-10.2/bin
 
+# region Install opencv with cuda
+
+RUN mkdir -p /opt/opencv/build
 WORKDIR /opt/opencv
 
 RUN wget https://raw.githubusercontent.com/Shadow2ube/robomaster2024/main/opencv.sh
 RUN chmod +x opencv.sh
 RUN ./opencv.sh
+
+# endregion Install opencv with cuda
 
 RUN echo "#!/bin/bash\nset -e\nsource /opt/ros/noetic/setup.bash --\nexec \"\$@\"" > /entrypoint.sh
 RUN chmod +x /entrypoint.sh

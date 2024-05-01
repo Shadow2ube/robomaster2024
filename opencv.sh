@@ -77,10 +77,8 @@ apt-get install -y --no-install-recommends \
   libv4l-dev \
   v4l-utils \
   libdc1394-22-dev \
-
   libgstreamer1.0-dev \
   libgstreamer-plugins-base1.0-dev \
-
   libgtk2.0-dev \
   libjpeg8-dev \
   libopenmpi-dev \

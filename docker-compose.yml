@@ -48,7 +48,7 @@ services:
     <<: *base_service
     build:
       context: .
-      dockerfile: ./detect/v2.Dockerfile
+      dockerfile: ./detect/v3.Dockerfile
     profiles: [ "cpu" ]
     command: [
       "python3", "/run/detect/detect/detect_image.py",

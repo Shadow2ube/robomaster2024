@@ -91,7 +91,6 @@ RUN apt-get install -y --no-install-recommends \
   cmake \
   curl \
   unzip \
-  gnupg \
   libopencv-dev \
   libopenblas-dev \
   liblapack-dev \
@@ -123,37 +122,44 @@ RUN apt-get install -y --no-install-recommends \
   protobuf-compiler \
   libprotoc-dev \
   llvm-9 \
-  llvm-9-dev
+  llvm-9-dev \
+
+RUN apt-get remove gcc \
+    && sudo apt-get install gcc-7 g++-7 -y \
+    && sudo ln -s /usr/bin/gcc-7 /usr/bin/gcc \
+    && sudo ln -s /usr/bin/g++-7 /usr/bin/g++ \
+    && sudo ln -s /usr/bin/gcc-7 /usr/bin/cc \
+    && sudo ln -s /usr/bin/g++-7 /usr/bin/c++
 
 RUN cmake \
-  -D CMAKE_BUILD_TYPE=RELEASE \
-  -D CMAKE_INSTALL_PREFIX=/usr \
-  -D OPENCV_GENERATE_PKGCONFIG=ON \
-  -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \
-  -D WITH_VTK=OFF \
-  -D WITH_QT=OFF \
-  -D WITH_GTK=OFF \
-  -D WITH_GSTREAMER=ON \
-  -D WITH_LIBV4L=ON \
-  -D WITH_TBB=ON \
-  -D WITH_CUDA=ON \
-  -D WITH_CUDNN=ON \
-  -D WITH_CUBLAS=1 \
-  -D BUILD_opencv_cudacodec=OFF \
-  -D ENABLE_FAST_MATH=1 \
-  -D CUDA_FAST_MATH=1 \
-  -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.2 \
-  -D BUILD_EXAMPLES=OFF \
-  -D BUILD_TESTS=OFF \
-  -D BUILD_PERF_TESTS=OFF \
-  -D BUILD_opencv_viz=OFF \
-  -D BUILD_opencv_python2=OFF \
-  -D BUILD_opencv_python3=ON \
-  -D HAVE_opencv_python3=ON \
-  -D BUILD_NEW_PYTHON_SUPPORT=ON \
-  -D OPENCV_PYTHON3_INSTALL_PATH=$(python3 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
-  -D PYTHON_EXECUTABLE=$(which python3) \
-  ..
+    -D CMAKE_BUILD_TYPE=RELEASE \
+    -D CMAKE_INSTALL_PREFIX=/usr \
+    -D OPENCV_GENERATE_PKGCONFIG=ON \
+    -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \
+    -D WITH_VTK=OFF \
+    -D WITH_QT=OFF \
+    -D WITH_GTK=OFF \
+    -D WITH_GSTREAMER=ON \
+    -D WITH_LIBV4L=ON \
+    -D WITH_TBB=ON \
+    -D WITH_CUDA=ON \
+    -D WITH_CUDNN=ON \
+    -D WITH_CUBLAS=1 \
+    -D BUILD_opencv_cudacodec=OFF \
+    -D ENABLE_FAST_MATH=1 \
+    -D CUDA_FAST_MATH=1 \
+    -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.2 \
+    -D BUILD_EXAMPLES=OFF \
+    -D BUILD_TESTS=OFF \
+    -D BUILD_PERF_TESTS=OFF \
+    -D BUILD_opencv_viz=OFF \
+    -D BUILD_opencv_python2=OFF \
+    -D BUILD_opencv_python3=ON \
+    -D HAVE_opencv_python3=ON \
+    -D BUILD_NEW_PYTHON_SUPPORT=ON \
+    -D OPENCV_PYTHON3_INSTALL_PATH=$(python3 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
+    -D PYTHON_EXECUTABLE=$(which python3) \
+    ..
 
 RUN make -j4
 RUN make install

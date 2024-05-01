@@ -66,6 +66,7 @@ ENV PATH=${PATH}:/home/dockeruser/.local/bin:/usr/local/cuda-10.2/bin
 RUN mkdir -p /opt/opencv/build
 WORKDIR /opt/opencv
 
+RUN echo gotta recompile
 RUN wget https://raw.githubusercontent.com/Shadow2ube/robomaster2024/main/opencv.sh
 RUN chmod +x opencv.sh
 RUN ./opencv.sh

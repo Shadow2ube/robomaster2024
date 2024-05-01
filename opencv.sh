@@ -87,7 +87,6 @@ apt-get install -y --no-install-recommends \
   libprotoc-dev \
   llvm-9 \
   llvm-9-dev \
-  ninja-build \
   && apt-get -y purge *libopencv*
 
 cmake cmake \
@@ -175,7 +174,7 @@ cmake cmake \
 #  -D PYTHON_EXECUTABLE=$(which python3) \
 #    ..
 
-ninja -j4 && ninja install
+make -j4 && make install
 
 echo "$NAME1" installed on "$ROOTDIR"
 echo add following line to .zshrc

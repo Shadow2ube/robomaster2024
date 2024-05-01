@@ -6,7 +6,9 @@ ENV LC_ALL=C.UTF-8
 
 # region Update to focal
 
-RUN apt-get install -y update-manager-core
+RUN apt-get update \
+    && apt-get upgrade \
+    && apt-get install -y update-manager-core
 RUN yes | do-release-upgrade
 
 # endregion Update to focal

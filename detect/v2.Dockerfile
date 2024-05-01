@@ -128,7 +128,7 @@ RUN apt-get install -y --no-install-recommends \
 
 RUN cmake \
   -D CMAKE_BUILD_TYPE=RELEASE \
-  -D CMAKE_INSTALL_PREFIX=/usr/local/opencv \
+  -D CMAKE_INSTALL_PREFIX=/usr \
   -D OPENCV_GENERATE_PKGCONFIG=ON \
   -D OPENCV_EXTRA_MODULES_PATH=../../opencv_contrib/modules \
   -D WITH_VTK=OFF \
@@ -136,8 +136,13 @@ RUN cmake \
   -D WITH_GTK=OFF \
   -D WITH_GSTREAMER=ON \
   -D WITH_LIBV4L=ON \
+  -D WITH_TBB=ON \
   -D WITH_CUDA=ON \
   -D WITH_CUDNN=ON \
+  -D WITH_CUBLAS=1 \
+  -D BUILD_opencv_cudacodec=OFF \
+  -D ENABLE_FAST_MATH=1 \
+  -D CUDA_FAST_MATH=1 \
   -D CUDA_ARCH_BIN="5.3,6.2,7.2" \
   -D CUDA_ARCH_PTX="" \
   -D CUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.2 \
@@ -150,8 +155,8 @@ RUN cmake \
   -D HAVE_opencv_python3=ON \
   -D BUILD_NEW_PYTHON_SUPPORT=ON \
   -D OPENCV_PYTHON3_INSTALL_PATH=$(python3 -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())") \
-  -D PYTHON_EXECUTABLE=$(which python2) \
-  ..
+  -D PYTHON_EXECUTABLE=$(which python3) \
+  .. && sleep 60
 
 RUN make -j4
 RUN make install

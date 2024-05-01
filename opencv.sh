@@ -89,7 +89,7 @@ apt-get install -y --no-install-recommends \
   llvm-9-dev \
   && apt-get -y purge *libopencv*
 
-cmake cmake \
+cmake \
   -D CMAKE_BUILD_TYPE=RELEASE \
   -D CMAKE_INSTALL_PREFIX=/usr/local/opencv \
   -D OPENCV_GENERATE_PKGCONFIG=ON \

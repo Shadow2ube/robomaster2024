@@ -1,5 +1,12 @@
 FROM federicolanzani/opencv-cuda-jetson:latest
 
+# region Update to focal
+
+RUN apt install -y update-manager-core
+RUN yes | do-release-upgrade
+
+# endregion Update to focal
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8

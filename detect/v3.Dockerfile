@@ -90,11 +90,11 @@ RUN apt-get -y install pip
 #
 #RUN echo "#!/bin/bash\nset -e\nsource /opt/ros/noetic/setup.bash --\nexec \"\$@\"" > /entrypoint.sh
 #RUN chmod +x /entrypoint.sh
-#
-#RUN groupmod --gid 985 video \
-#    && useradd -m --uid 1000 dockeruser \
-#    && usermod -a -G video dockeruser
-#
+
+RUN groupmod --gid 985 video \
+    && useradd -m --uid 1000 dockeruser \
+    && usermod -a -G video dockeruser
+
 USER dockeruser
 
 #RUN pip3 install rospy2

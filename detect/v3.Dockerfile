@@ -38,7 +38,8 @@ RUN apt-get update && apt-get upgrade -y --autoremove
 #
 ## endregion get python3.10.11
 
-RUN yes | add-apt-repository ppa:deadsnakes/ppa \
+RUN apt-get install -y software-properties-common \
+    && yes | add-apt-repository ppa:deadsnakes/ppa \
     && apt install python3.10
 
 RUN apt-get update && apt-get install -y \

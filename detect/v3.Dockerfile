@@ -40,7 +40,7 @@ RUN apt-get update && apt-get upgrade -y --autoremove
 
 RUN apt-get install -y software-properties-common \
     && yes | add-apt-repository ppa:deadsnakes/ppa \
-    && apt install python3.10
+    && apt-get install -y python3.10
 
 RUN apt-get update && apt-get install -y \
     libtesseract4 \

@@ -45,8 +45,8 @@ RUN echo "#!/bin/bash\nset -e\nsource /opt/ros/noetic/setup.bash --\nexec \"\$@\
 RUN chmod +x /entrypoint.sh
 
 RUN groupmod --gid 985 video \
-    && RUN useradd -m --uid 1000 dockeruser \
-    && RUN usermod -a -G video dockeruser
+    && useradd -m --uid 1000 dockeruser \
+    && usermod -a -G video dockeruser
 
 USER dockeruser
 

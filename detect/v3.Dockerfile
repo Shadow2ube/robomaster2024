@@ -47,6 +47,7 @@ RUN pip3 install numpy
 
 WORKDIR cd /tmp
 RUN wget https://github.com/lanzani/opencv-cuda-jetson-docker/raw/main/ubuntu18.04-py3.10.11-opencv4.8.0/installer/OpenCV-4.8.0-aarch64.sh
+RUN chmod +x OpenCV-4.8.0-aarch64.sh
 RUN ./OpenCV-4.8.0-aarch64.sh --prefix=/usr/local --skip-license --exclude-subdir
 
 ## region Update to focal

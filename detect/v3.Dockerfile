@@ -68,6 +68,7 @@ ENV CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release \
     PATH=${PATH}:/usr/local/cuda-10.2/bin \
     nproc=4
 RUN apt-get install -y python3-pip
+RUN pip3 install --upgrade pip3 setuptools wheel
 RUN cd opencv-python && pip3 install . --verbose
 
 

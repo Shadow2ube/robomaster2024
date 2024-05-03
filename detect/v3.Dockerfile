@@ -36,36 +36,39 @@ WORKDIR /opt/opencv_install
 RUN git clone --recursive https://github.com/opencv/opencv-python.git
 
 ENV CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release \
-    -DCMAKE_INSTALL_PREFIX=/usr \
-    -DBUILD_PNG=OFF \
-    -DBUILD_TIFF=OFF \
-    -DBUILD_TBB=OFF \
-    -DBUILD_JPEG=OFF \
-    -DBUILD_JASPER=OFF \
-    -DBUILD_ZLIB=OFF \
-    -DBUILD_EXAMPLES=ON \
-    -DBUILD_JAVA=OFF \
-    -DBUILD_opencv_python2=ON \
-    -DBUILD_opencv_python3=OFF \
-    -DENABLE_NEON=ON \
-    -DWITH_OPENCL=OFF \
-    -DWITH_OPENMP=OFF \
-    -DWITH_FFMPEG=ON \
-    -DWITH_GSTREAMER=OFF \
-    -DWITH_GSTREAMER_0_10=OFF \
-    -DWITH_CUDA=ON \
-    -DWITH_GTK=ON \
-    -DWITH_VTK=OFF \
-    -DWITH_TBB=ON \
-    -DWITH_1394=OFF \
-    -DWITH_OPENEXR=OFF \
-    -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.2 \
-    -DCUDA_ARCH_BIN=6.2 \
-    -DCUDA_ARCH_PTX=\"\" \
-    -DINSTALL_C_EXAMPLES=ON \
-    -DINSTALL_TESTS=OFF"
+        -DCMAKE_INSTALL_PREFIX=/usr \
+        -DBUILD_PNG=OFF \
+        -DBUILD_TIFF=OFF \
+        -DBUILD_TBB=OFF \
+        -DBUILD_JPEG=OFF \
+        -DBUILD_JASPER=OFF \
+        -DBUILD_ZLIB=OFF \
+        -DBUILD_EXAMPLES=ON \
+        -DBUILD_JAVA=OFF \
+        -DBUILD_opencv_python2=ON \
+        -DBUILD_opencv_python3=OFF \
+        -DENABLE_NEON=ON \
+        -DWITH_OPENCL=OFF \
+        -DWITH_OPENMP=OFF \
+        -DWITH_FFMPEG=ON \
+        -DWITH_GSTREAMER=OFF \
+        -DWITH_GSTREAMER_0_10=OFF \
+        -DWITH_CUDA=ON \
+        -DWITH_GTK=ON \
+        -DWITH_VTK=OFF \
+        -DWITH_TBB=ON \
+        -DWITH_1394=OFF \
+        -DWITH_OPENEXR=OFF \
+        -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.2 \
+        -DCUDA_ARCH_BIN=6.2 \
+        -DCUDA_ARCH_PTX=\"\" \
+        -DINSTALL_C_EXAMPLES=ON \
+        -DINSTALL_TESTS=OFF" \
+    ENABLE_HEADLESS=1 \
+    PATH=${PATH}:/usr/local/cuda-10.2/bin \
+    nproc=4
 RUN apt-get install -y python3-pip
-RUN cd opencv-python && pip3 wheel . --verbose
+RUN cd opencv-python && pip3 install . --verbose
 
 
 #ENV LANG=C.UTF-8

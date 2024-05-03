@@ -64,7 +64,8 @@ ENV CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release \
     -DCUDA_ARCH_PTX=\"\" \
     -DINSTALL_C_EXAMPLES=ON \
     -DINSTALL_TESTS=OFF" ENABLE_CONTRIB=1
-RUN pip wheel . --verbose
+RUN apt-get install -y python3-pip
+RUN pip3 wheel . --verbose
 
 
 #ENV LANG=C.UTF-8

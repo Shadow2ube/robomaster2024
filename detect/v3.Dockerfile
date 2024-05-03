@@ -63,7 +63,7 @@ ENV CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release \
     -DCUDA_ARCH_BIN=6.2 \
     -DCUDA_ARCH_PTX=\"\" \
     -DINSTALL_C_EXAMPLES=ON \
-    -DINSTALL_TESTS=OFF" ENABLE_CONTRIB=1
+    -DINSTALL_TESTS=OFF"
 RUN apt-get install -y python3-pip
 RUN cd opencv-python && pip3 wheel . --verbose
 

@@ -46,7 +46,7 @@ RUN apt-get update && apt-get install -y \
     libtesseract4 \
     libatlas3-base \
     wget \
-    python-pip3
+    python3-pip
 
 RUN pip3 install numpy
 

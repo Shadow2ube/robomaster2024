@@ -68,6 +68,13 @@ ENV CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release \
     PATH=${PATH}:/usr/local/cuda-10.2/bin \
     nproc=4
 RUN apt-get install -y python3-pip
+
+RUN groupmod --gid 985 video \
+    && useradd -m --uid 1000 dockeruser \
+    && usermod -a -G video dockeruser
+
+USER dockeruser
+
 RUN pip3 install --upgrade pip setuptools wheel
 RUN cd opencv-python && pip3 install . --verbose
 
@@ -103,12 +110,6 @@ RUN cd opencv-python && pip3 install . --verbose
 #
 #RUN echo "#!/bin/bash\nset -e\nsource /opt/ros/noetic/setup.bash --\nexec \"\$@\"" > /entrypoint.sh
 #RUN chmod +x /entrypoint.sh
-
-RUN groupmod --gid 985 video \
-    && useradd -m --uid 1000 dockeruser \
-    && usermod -a -G video dockeruser
-
-USER dockeruser
 
 #RUN pip3 install rospy2
 #RUN pip3 install ultralytics

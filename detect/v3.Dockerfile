@@ -4,81 +4,80 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get upgrade -y --autoremove
 
-## Get python3.10.11
-#
-## Install tzdata
-#RUN apt-get update && \
-#    DEBIAN_FRONTEND=noninteractive TZ=Etc/UTC apt-get -y install tzdata
-#
-## Install dependencies
-#RUN apt-get update && apt-get upgrade && apt-get -y install \
-#    git \
-#    git-buildpackage \
-#    python3.8 \
-#    debhelper \
-#    autoconf \
-#    libncursesw5-dev
-#
-## Build python
-#RUN apt-get install --reinstall ca-certificates -y \
-#    && git clone https://github.com/JetsonHacksNano/build_python.git \
-#    && cd build_python \
-#    && sed -i 's/^sudo //' build_python3.sh \
-#    && bash ./build_python3.sh --version 3.10; exit 0
-#
-## Make local repository
-#RUN cd build_python  \
-#    && sed -i 's/^sudo //' make_apt_repository.sh \
-#    && bash ./make_apt_repository.sh --version 3.10
-#
-## Install python
-#RUN apt-get install -y python3.10-full \
-#    python3-testresources \
-#    && python3.10 -m ensurepip --upgrade
-#
-## endregion get python3.10.11
-
-
-RUN apt-get install -y software-properties-common \
-    && yes | add-apt-repository ppa:deadsnakes/ppa \
-    && apt-get install -y python3.10
-
-RUN apt-get remove -y python3.8
-RUN rm /usr/bin/python3
-RUN ln -s /usr/bin/python3.10 /usr/bin/python3
-
+RUN software-properties-common \
+    && yes | apt-add-repository universe
 RUN apt-get update && apt-get install -y \
-    libtesseract4 \
-    libatlas3-base \
-    wget \
-    python3-pip
+    libglew-dev \
+    libtiff5-dev \
+    zlib1g-dev \
+    libjpeg-dev \
+    libpng12-dev \
+    libjasper-dev \
+    libavcodec-dev \
+    libavformat-dev \
+    libavutil-dev \
+    libpostproc-dev \
+    libswscale-dev \
+    libeigen3-dev \
+    libtbb-dev \
+    libgtk2.0-dev \
+    pkg-config \
+    git \
+    python-dev \
+    python-numpy \
+    python-py \
+    python-pytest \
+    python3-dev \
+    python3-numpy \
+    python3-py \
+    python3-pytest
 
-RUN pip3 install numpy
+RUN mkdir -p /opt/opencv_install
+WORKDIR /opt/opencv_install
 
-RUN mkdir /opt/opencv
-WORKDIR /opt/opencv
-RUN wget https://github.com/lanzani/opencv-cuda-jetson-docker/raw/main/ubuntu18.04-py3.10.11-opencv4.8.0/installer/OpenCV-4.8.0-aarch64.sh
-RUN chmod +x OpenCV-4.8.0-aarch64.sh
-RUN ./OpenCV-4.8.0-aarch64.sh --prefix=/usr/local --skip-license --exclude-subdir
+RUN git clone --recursive https://github.com/opencv/opencv-python.git
 
-## region Update to focal
-#
+ENV CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DBUILD_PNG=OFF \
+    -DBUILD_TIFF=OFF \
+    -DBUILD_TBB=OFF \
+    -DBUILD_JPEG=OFF \
+    -DBUILD_JASPER=OFF \
+    -DBUILD_ZLIB=OFF \
+    -DBUILD_EXAMPLES=ON \
+    -DBUILD_JAVA=OFF \
+    -DBUILD_opencv_python2=ON \
+    -DBUILD_opencv_python3=OFF \
+    -DENABLE_NEON=ON \
+    -DWITH_OPENCL=OFF \
+    -DWITH_OPENMP=OFF \
+    -DWITH_FFMPEG=ON \
+    -DWITH_GSTREAMER=OFF \
+    -DWITH_GSTREAMER_0_10=OFF \
+    -DWITH_CUDA=ON \
+    -DWITH_GTK=ON \
+    -DWITH_VTK=OFF \
+    -DWITH_TBB=ON \
+    -DWITH_1394=OFF \
+    -DWITH_OPENEXR=OFF \
+    -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-10.2 \
+    -DCUDA_ARCH_BIN=6.2 \
+    -DCUDA_ARCH_PTX=\"\" \
+    -DINSTALL_C_EXAMPLES=ON \
+    -DINSTALL_TESTS=OFF" ENABLE_CONTRIB=1
+RUN pip wheel . --verbose
+
+
+#ENV LANG=C.UTF-8
+#ENV LC_ALL=C.UTF-8
+
 #RUN apt-get update \
-#    && apt-get upgrade -y \
-#    && apt-get install -y update-manager-core
-#RUN yes | do-release-upgrade
-#
-## endregion Update to focal
+# && apt-get install -y locales lsb-release
+#ENV DEBIAN_FRONTEND=noninteractive PATH=${PATH}:/home/dockeruser/.local/bin
+#RUN dpkg-reconfigure locales
 
-ENV LANG=C.UTF-8
-ENV LC_ALL=C.UTF-8
-
-RUN apt-get update \
- && apt-get install -y locales lsb-release
-ENV DEBIAN_FRONTEND=noninteractive PATH=${PATH}:/home/dockeruser/.local/bin
-RUN dpkg-reconfigure locales
-
-RUN apt-get -y install pip
+#RUN apt-get -y install pip
 
 ## Install ROS Noetic
 #

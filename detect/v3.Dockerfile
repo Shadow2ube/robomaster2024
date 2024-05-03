@@ -11,8 +11,6 @@ RUN apt-get update && apt-get install -y \
     libtiff5-dev \
     zlib1g-dev \
     libjpeg-dev \
-    libpng12-dev \
-    libjasper-dev \
     libavcodec-dev \
     libavformat-dev \
     libavutil-dev \

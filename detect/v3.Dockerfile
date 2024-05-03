@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get upgrade -y --autoremove
 
-RUN apt-get isntall -y software-properties-common \
+RUN apt-get install -y software-properties-common \
     && yes | apt-add-repository universe
 RUN apt-get update && apt-get install -y \
     libglew-dev \

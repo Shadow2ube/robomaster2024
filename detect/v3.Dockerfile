@@ -69,12 +69,6 @@ ENV CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release \
     nproc=4
 RUN apt-get install -y python3-pip
 
-RUN groupmod --gid 985 video \
-    && useradd -m --uid 1000 dockeruser \
-    && usermod -a -G video dockeruser
-
-USER dockeruser
-
 RUN pip3 install --upgrade pip setuptools wheel
 RUN cd opencv-python && pip3 install . --verbose
 
@@ -117,6 +111,12 @@ RUN cd opencv-python && pip3 install . --verbose
 #RUN pip3 install --upgrade numpy
 #RUN pip3 install cv-bridge
 
+
+RUN groupmod --gid 985 video \
+    && useradd -m --uid 1000 dockeruser \
+    && usermod -a -G video dockeruser
+
+USER dockeruser
 WORKDIR "/home/dockeruser"
 
 #ENTRYPOINT ["/entrypoint.sh"]

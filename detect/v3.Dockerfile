@@ -63,7 +63,8 @@ ENV CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release \
         -DCUDA_ARCH_BIN=6.2 \
         -DCUDA_ARCH_PTX=\"\" \
         -DINSTALL_C_EXAMPLES=ON \
-        -DINSTALL_TESTS=OFF" \
+        -DINSTALL_TESTS=OFF \
+        -DPYTHON3_LIMITED_API=ON" \
     ENABLE_HEADLESS=1 \
     PATH=${PATH}:/usr/local/cuda-10.2/bin \
     nproc=4

@@ -35,6 +35,7 @@ WORKDIR /opt/opencv_install
 
 RUN git clone --recursive https://github.com/opencv/opencv-python.git
 
+RUN apt-get install -y python3-pip
 ENV CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DBUILD_PNG=OFF \
@@ -67,10 +68,9 @@ ENV CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release \
         -DPYTHON3_LIMITED_API=ON" \
     ENABLE_HEADLESS=1 \
     PATH=${PATH}:/usr/local/cuda-10.2/bin \
-    nproc=4
-RUN apt-get install -y python3-pip
+    nproc=12
 
-RUN pip3 install --upgrade pip setuptools wheel
+RUN pip3 install --upgrade pip setuptools wheel scikit-build
 RUN cd opencv-python && pip3 install . --verbose
 
 

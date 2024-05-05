@@ -36,6 +36,19 @@ WORKDIR /opt/opencv_install
 RUN git clone --recursive https://github.com/opencv/opencv-python.git
 
 RUN apt-get install -y python3-pip
+
+RUN groupmod --gid 985 video \
+    && useradd -m --uid 1000 dockeruser \
+    && usermod -a -G video dockeruser \
+    && mkdir /opt/opencv \
+    && chown dockeruser:dockeruser /opt/opencv
+
+WORKDIR /opt/opencv
+
+USER dockeruser
+
+RUN pip3 install --upgrade pip setuptools wheel scikit-build
+
 ENV CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release \
         -DCMAKE_INSTALL_PREFIX=/usr \
         -DBUILD_PNG=OFF \
@@ -70,7 +83,6 @@ ENV CMAKE_ARGS="${CMAKE_ARGS} -DCMAKE_BUILD_TYPE=Release \
     PATH=${PATH}:/usr/local/cuda-10.2/bin \
     nproc=12
 
-RUN pip3 install --upgrade pip setuptools wheel scikit-build
 RUN cd opencv-python && pip3 install . --verbose
 
 
@@ -112,10 +124,6 @@ RUN cd opencv-python && pip3 install . --verbose
 #RUN pip3 install --upgrade numpy
 #RUN pip3 install cv-bridge
 
-
-RUN groupmod --gid 985 video \
-    && useradd -m --uid 1000 dockeruser \
-    && usermod -a -G video dockeruser
 
 USER dockeruser
 WORKDIR "/home/dockeruser"

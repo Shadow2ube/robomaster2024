@@ -33,7 +33,6 @@ RUN apt-get update && apt-get install -y \
 RUN mkdir -p /opt/opencv_install
 WORKDIR /opt/opencv_install
 
-RUN git clone --recursive https://github.com/opencv/opencv-python.git
 
 RUN apt-get install -y python3-pip
 
@@ -46,6 +45,8 @@ RUN groupmod --gid 985 video \
 WORKDIR /opt/opencv
 
 USER dockeruser
+
+RUN git clone --recursive https://github.com/opencv/opencv-python.git
 
 RUN pip3 install --upgrade pip setuptools wheel scikit-build
 

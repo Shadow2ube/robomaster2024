@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/l4t-base:r36.2.0
+FROM nvcr.io/nvidia/l4t-base:r35.3.1
 
 ENV DEBIAN_FRONTEND=noninteractive
 

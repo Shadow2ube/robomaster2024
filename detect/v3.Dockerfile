@@ -9,10 +9,13 @@ RUN apt-get install -y wget sudo
 RUN mkdir -p /opt/opencv_install
 WORKDIR /opt/opencv_install
 
+
 RUN groupmod --gid 985 video \
     && useradd -m --uid 1000 dockeruser \
     && usermod -a -G video,sudo dockeruser \
     && chown dockeruser:dockeruser /opt/opencv_install
+
+USER dockeruser
 
 RUN wget https://raw.githubusercontent.com/mdegans/nano_build_opencv/master/build_opencv.sh
 RUN chmod +x build_opencv.sh \

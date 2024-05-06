@@ -11,6 +11,7 @@ WORKDIR /opt/opencv_install
 
 RUN wget https://raw.githubusercontent.com/mdegans/nano_build_opencv/master/build_opencv.sh
 RUN sed -i -e 's/local CMAKEFLAGS="/local CMAKEFLAGS="-D CUDA_TOOLKIT_ROOT_DIR=\/usr\/local\/cuda-10.2 -D CUDA_BIN_PATH=\/usr\/local\/cuda-10.2\/bin/g' build_opencv.sh
+RUN ls /usr/local -al && exit 1
 RUN chmod +x build_opencv.sh \
     && ./build_opencv.sh
 

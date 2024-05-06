@@ -4,10 +4,12 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get upgrade -y --autoremove
 
-RUN apt-get install -y wget sudo
+RUN apt-get install -y wget sudo gcc-8 g++-8
 
 RUN mkdir -p /opt/opencv_install
 WORKDIR /opt/opencv_install
+
+ENV CC=gcc-8 CXX=g++-8
 
 RUN wget https://raw.githubusercontent.com/mdegans/nano_build_opencv/master/build_opencv.sh \
     && sed -i \

@@ -4,12 +4,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get upgrade -y --autoremove
 
-RUN apt-get install -y wget sudo gcc-10 g++-10
+RUN apt-get install -y wget sudo
 
 RUN mkdir -p /opt/opencv_install
 WORKDIR /opt/opencv_install
 
-ENV CC=gcc-10 CXX=g++-10
 RUN wget https://raw.githubusercontent.com/mdegans/nano_build_opencv/master/build_opencv.sh \
     && sed -i \
       -e 's/local CMAKEFLAGS="/local CMAKEFLAGS="-D CUDA_TOOLKIT_ROOT_DIR=\/usr\/local\/cuda-10.2 -D CUDA_BIN_PATH=\/usr\/local\/cuda-10.2\/bin/g' \

@@ -2,7 +2,7 @@ FROM nvcr.io/nvidia/l4t-base:35.3.1
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update
+RUN apt-get update && apt-get upgrade -y --autoremove
 
 RUN apt-get install -y wget sudo
 
@@ -12,7 +12,7 @@ WORKDIR /opt/opencv_install
 RUN wget https://raw.githubusercontent.com/mdegans/nano_build_opencv/master/build_opencv.sh
 RUN sed -i -e 's/local CMAKEFLAGS="/local CMAKEFLAGS="-D CUDA_TOOLKIT_ROOT_DIR=\/usr\/local\/cuda-10.2 -D CUDA_BIN_PATH=\/usr\/local\/cuda-10.2\/bin/g' build_opencv.sh
 RUN chmod +x build_opencv.sh \
-    && ./build_opencv.sh
+    && echo n | ./build_opencv.sh
 
 RUN groupmod --gid 985 video \
     && useradd -m --uid 1000 dockeruser \

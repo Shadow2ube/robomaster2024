@@ -2,7 +2,7 @@ FROM nvcr.io/nvidia/l4t-base:r35.1.0
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get upgrade -y --autoremove
+RUN apt-get update
 
 RUN apt-get install -y wget sudo
 

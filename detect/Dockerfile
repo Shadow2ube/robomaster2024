@@ -3,20 +3,19 @@ FROM nvcr.io/nvidia/l4t-pytorch:r32.7.1-pth1.9-py3
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
 
+# region update from 18.04 to 20.04
+
+RUN apt-get update && apt-get upgrade && apt-get install -y update-manager-core
+RUN yes | do-release-upgrade
+
+# endregion updte from 18.04 to 20.04
+
 RUN apt-get update \
  && apt-get install -y locales lsb-release
 ENV DEBIAN_FRONTEND=noninteractive PATH=${PATH}:/home/dockeruser/.local/bin
 RUN dpkg-reconfigure locales
 
 RUN apt-get -y install pip
-
-# region update from 18.04 to 20.04
-
-RUN apt-get install -y update-manager-core
-RUN yes | do-release-upgrade
-
-# endregion updte from 18.04 to 20.04
-
 
 # Install ROS Noetic
 

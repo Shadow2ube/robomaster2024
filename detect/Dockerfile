@@ -48,7 +48,7 @@ USER dockeruser
 
 RUN git clone --recursive --branch v1.9.0 http://github.com/pytorch/pytorch
 WORKDIR /tmp/pytorch
-RUN python3.8 -m pip install "cython<3.0.0" && pip3 install --no-build-isolation pyyaml==6.0
+RUN python3.8 -m pip install "cython<3.0.0" && python3 -m pip install pyyaml==6.0
 RUN python3.8 -m pip install -r requirements.txt
 RUN python3.8 setup.py install
 

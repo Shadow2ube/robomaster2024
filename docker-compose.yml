@@ -48,6 +48,7 @@ services:
     <<: *base_service
     image: robomaster2024-detect:latest
     runtime: nvidia
+    platform: linux/arm64
     build:
       context: .
       dockerfile: detect/Dockerfile

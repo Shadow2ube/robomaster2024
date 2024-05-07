@@ -34,14 +34,19 @@ RUN rosdep init \
 
 # endregion Install ROS
 
-RUN echo "Package: python3-opencv\nPin: release *\nPin-Priority: -1" >> /etc/apt/preferences && apt-get update \
-    && mkdir -p /opt/detect \
+RUN mkdir -p /opt/detect \
     && echo "#!/bin/bash\nset -e\nsource /opt/ros/${ROS_DISTRO}/setup.bash --\nexec \"\$@\"" > /entrypoint.sh \
     && chmod +x /entrypoint.sh \
     && groupmod --gid 985 video \
     && useradd -m --uid 1000 dockeruser && usermod -a -G video dockeruser
 
-RUN apt-get update && apt-get -y install python3-pip
+RUN apt-get update && apt-get -y install python3.8 python3-pip
+WORKDIR /tmp
+RUN git clone --recursive --branch 1.9 http://github.com/pytorch/pytorch \
+    && cd pytorch \
+    && python3.8 -m pip install -r requirements.txt \
+    && python3.8 setup.py install
+
 
 USER dockeruser
 

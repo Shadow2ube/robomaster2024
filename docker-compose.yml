@@ -5,8 +5,10 @@ x-base_service: &base_service
     - IP_ADDRESS=192.168.55.1
     - PORT=11311
     - DISPLAY=${DISPLAY}
-    - ROS_MASTER_URI=http://192.168.55.1:11311
-    - ROS_IP=192.168.55.1
+#    - ROS_MASTER_URI=http://192.168.55.1:11311
+    - ROS_MASTER_URI=http://10.0.0.99:11311
+#    - ROS_IP=192.168.55.1
+    - ROS_IP=10.0.0.99
   volumes:
     - .:/run/detect
     - /tmp/.X11-unix:/tmp/.X11-unix
@@ -40,7 +42,7 @@ services:
     <<: *base_service
     build:
       context: .
-      dockerfile: ./bridge.Dockerfile
+      dockerfile: testing/bridge.Dockerfile
     profiles: [ "bridge" ]
     command: [ "rosrun", "foxglove_bridge", "foxglove_bridge" ]
 
@@ -72,7 +74,7 @@ services:
     profiles: [ "webcam" ]
     privileged: true
     #    command: [ "python3", "/run/detect/camera/img_pub.py", "-f", "/run/detect/videos/UW vs UCSD Group A BO2  _ 2022 RoboMaster University League North America.mp4" ]
-    command: [ "python3", "/run/detect/camera/img_pub.py", "-f", "0" ]
+    command: [ "python3", "/run/detect/camera/img_pub.py", "-f", "3" ]
     depends_on:
       roscore:
         condition: service_healthy

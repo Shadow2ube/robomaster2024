@@ -1,6 +1,6 @@
 ARG base_image
-#FROM osrf/ros:noetic-desktop-full
-FROM arm64v8/ros:noetic-ros-core
+FROM osrf/ros:noetic-desktop-full
+#FROM arm64v8/ros:noetic-ros-core
 
 RUN apt-get update
 RUN apt-get -y install curl python3 pip lsb-release apt-transport-https
@@ -28,7 +28,7 @@ RUN pip3 install rospy2
 USER root
 
 RUN apt-get -y install ros-noetic-std-msgs
-RUN apt-get -y install ros-noetic-realsense2-camera
+RUN #apt-get -y install ros-noetic-realsense2-camera
 RUN #apt-get -y install libgl1-mesa-glx libglib2.0-dev
 RUN #apt-get -y install librealsense2-dkms
 

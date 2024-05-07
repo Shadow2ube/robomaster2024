@@ -41,8 +41,9 @@ RUN mkdir -p /opt/detect \
     && useradd -m --uid 1000 dockeruser && usermod -a -G video dockeruser
 
 RUN apt-get update && apt-get -y install python3.8 python3-pip
+
 WORKDIR /tmp
-RUN git clone --recursive --branch v2.3.0 http://github.com/pytorch/pytorch \
+RUN git clone --recursive --branch v1.9.0 http://github.com/pytorch/pytorch \
     && cd pytorch \
     && python3.8 -m pip install -r requirements.txt \
     && python3.8 setup.py install

@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/l4t-ml:r35.2.1-py3
+FROM nvcr.io/nvidia/l4t-pytorch:r32.7.1-pth1.9-py3
 
 ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
@@ -39,11 +39,6 @@ USER dockeruser
 RUN pip3 install ultralytics
 RUN pip3 install pyrealsense2
 RUN pip3 install cv-bridge
-
-# region reinstall torch with cuda
-ENV TORCH_INSTALL=https://developer.download.nvidia.com/compute/redist/jp/v51/pytorch/torch-2.0.0a0+8aa34602.nv23.03-cp38-cp38-linux_aarch64.whl
-RUN pip3 install --no-cache ${TORCH_INSTALL}
-# endregion reinstall torch with cuda
 
 WORKDIR "/home/dockeruser"
 

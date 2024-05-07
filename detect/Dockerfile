@@ -10,6 +10,14 @@ RUN dpkg-reconfigure locales
 
 RUN apt-get -y install pip
 
+# region update from 18.04 to 20.04
+
+RUN apt-get install -y update-manager-core
+RUN yes | do-release-upgrade
+
+# endregion updte from 18.04 to 20.04
+
+
 # Install ROS Noetic
 
 RUN sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'

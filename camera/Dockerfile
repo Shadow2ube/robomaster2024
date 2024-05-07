@@ -1,18 +1,8 @@
 ARG base_image
-#FROM osrf/ros:noetic-desktop-full
 FROM arm64v8/ros:noetic-ros-core
 
 RUN apt-get update
 RUN apt-get -y install curl python3 pip lsb-release apt-transport-https
-
-#RUN mkdir -p /etc/apt/keyrings
-#RUN curl -sSf https://librealsense.intel.com/Debian/librealsense.pgp \
-#    | tee /etc/apt/keyrings/librealsense.pgp > /dev/null
-#
-#RUN echo "deb [signed-by=/etc/apt/keyrings/librealsense.pgp] https://librealsense.intel.com/Debian/apt-repo `lsb_release -cs` main" \
-#    | tee /etc/apt/sources.list.d/librealsense.list
-#
-#RUN apt-get update
 
 ENV PATH="${PATH}:/home/dockeruser/.local/bin"
 

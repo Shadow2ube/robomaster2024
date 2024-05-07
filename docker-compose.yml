@@ -73,7 +73,6 @@ services:
       dockerfile: ./camera/Dockerfile
     profiles: [ "webcam" ]
     privileged: true
-    #    command: [ "python3", "/run/detect/camera/img_pub.py", "-f", "/run/detect/videos/UW vs UCSD Group A BO2  _ 2022 RoboMaster University League North America.mp4" ]
     command: [ "python3", "/run/detect/camera/img_pub.py", "-f", "0" ]
     depends_on:
       roscore:
@@ -89,8 +88,6 @@ services:
     command: [
       "roslaunch", "realsense2_camera", "rs_camera.launch",
       "depth_module.depth_profile:=1280x720x30",
-      "pointcloud.enable:=true",
-      "filters:=pointcloud",
       "initial_reset:=true",
     ]
 

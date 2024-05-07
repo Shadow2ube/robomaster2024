@@ -6,7 +6,7 @@ ENV LC_ALL=C.UTF-8
 # region update from 18.04 to 20.04
 
 RUN apt-key adv --keyserver 'keyserver.ubuntu.com' --recv-key 1A127079A92F09ED
-RUN apt-get update && apt-get upgrade && apt-get install -y update-manager-core
+RUN apt-get update && apt-get upgrade -y && apt-get install -y update-manager-core
 RUN yes | do-release-upgrade
 
 # endregion updte from 18.04 to 20.04

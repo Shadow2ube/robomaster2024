@@ -40,13 +40,13 @@ RUN mkdir -p /opt/detect \
     && groupmod --gid 985 video \
     && useradd -m --uid 1000 dockeruser && usermod -a -G video dockeruser
 
-RUN apt-get update && apt-get -y install python3.8 python3-pip
+RUN apt-get update && apt-get -y install python3.8 python3-pip python-dev
 
 WORKDIR /tmp
 
 USER dockeruser
 
-RUN git clone --recursive --branch v1.9.0 http://github.com/pytorch/pytorch
+RUN git clone --recursive --branch v1.9.0 https://github.com/pytorch/pytorch
 WORKDIR /tmp/pytorch
 RUN python3.8 -m pip install "cython<3.0.0" && python3 -m pip install pyyaml==6.0
 RUN python3.8 -m pip install -r requirements.txt

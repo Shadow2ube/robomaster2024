@@ -43,13 +43,16 @@ RUN mkdir -p /opt/detect \
 RUN apt-get update && apt-get -y install python3.8 python3-pip
 
 WORKDIR /tmp
-RUN git clone --recursive --branch v1.9.0 http://github.com/pytorch/pytorch \
-    && cd pytorch \
-    && python3.8 -m pip install -r requirements.txt \
-    && python3.8 setup.py install
-
 
 USER dockeruser
+
+RUN git clone --recursive --branch v1.9.0 http://github.com/pytorch/pytorch
+WORKDIR /tmp/pytorch
+RUN python3.8 -m pip install Cython
+RUN python3.8 -m pip install -r requirements.txt
+RUN python3.8 setup.py install
+
+
 
 RUN pip3 install ultralytics
 RUN pip3 install pyrealsense2

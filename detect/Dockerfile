@@ -41,7 +41,7 @@ RUN pip3 install pyrealsense2
 RUN pip3 install cv-bridge
 
 # region reinstall torch with cuda
-ENV TORCH_INSTALL=https://developer.download.nvidia.cn/compute/redist/jp/v511/pytorch/torch-2.0.0+nv23.05-cp38-cp38-linux_aarch64.whl
+ENV TORCH_INSTALL=https://developer.download.nvidia.com/compute/redist/jp/v461/pytorch/torch-1.11.0a0+17540c5+nv22.01-cp36-cp36m-linux_aarch64.whl
 RUN python3 -m pip install --upgrade pip; \
     python3 -m pip install numpy=='1.26.1'; \
     python3 -m pip install --no-cache ${TORCH_INSTALL}

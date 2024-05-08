@@ -29,29 +29,27 @@ RUN rosdep init \
 
 # endregion Install ROS
 
+RUN apt-get update && apt-get -y install python3.8
+ENV VENV_LOCATION=/home/dockeruser
+RUN python3.8 -m pip install venv && python3.8 -m venv ${VENV_LOCATION}/.venv
+
 RUN mkdir -p /opt/detect \
-    && echo "#!/bin/bash\nset -e\nsource /opt/ros/${ROS_DISTRO}/setup.bash --\nexec \"\$@\"" > /entrypoint.sh \
+    && echo "#!/bin/bash\nset -e\nsource /opt/ros/${ROS_DISTRO}/setup.bash --\nsource /home/dockeruser/.venv/bin/activate\nexec \"\$@\"" > /entrypoint.sh \
     && chmod +x /entrypoint.sh \
     && groupmod --gid 985 video \
     && useradd -m --uid 1000 dockeruser && usermod -a -G video dockeruser
 
-RUN apt-get update && apt-get -y install python3.8 python3-pip python-dev python3-dev
-
-WORKDIR /tmp
-
 USER dockeruser
+WORKDIR /home/dockeruser
 
-RUN git clone --recursive --branch v1.9.0 https://github.com/pytorch/pytorch
-WORKDIR /tmp/pytorch
-RUN python3.8 -m pip install "cython<3.0.0" && python3 -m pip install pyyaml==6.0
-RUN python3.8 -m pip install -r requirements.txt
-RUN python3.8 setup.py install
+#RUN python3.8 -m pip install "cython<3.0.0" && python3 -m pip install pyyaml==6.0
+RUN git clone --recursive --branch v2.3.0 https://github.com/pytorch/pytorch
+RUN source ${VENV_LOCATION}/.venv/bin/activate && python3.8 -m pip install -r requirements.txt
+RUN source ${VENV_LOCATION}/.venv/bin/activate && python3.8 setup.py install
 
-
-
-RUN pip3 install ultralytics
-RUN pip3 install pyrealsense2
-RUN pip3 install cv-bridge
+RUN source ${VENV_LOCATION}/.venv/bin/activate && pip3 install ultralytics
+RUN source ${VENV_LOCATION}/.venv/bin/activate && pip3 install pyrealsense2
+RUN source ${VENV_LOCATION}/.venv/bin/activate && pip3 install cv-bridge
 
 WORKDIR "/home/dockeruser"
 

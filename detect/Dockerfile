@@ -40,7 +40,7 @@ RUN mkdir -p /opt/detect \
     && groupmod --gid 985 video \
     && useradd -m --uid 1000 dockeruser && usermod -a -G video dockeruser
 
-RUN apt-get update && apt-get -y install python3.8 python3-pip python-dev
+RUN apt-get update && apt-get -y install python3.8 python3-pip python-dev python3-dev
 
 WORKDIR /tmp
 

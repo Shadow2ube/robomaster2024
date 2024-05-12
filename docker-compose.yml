@@ -6,9 +6,9 @@ x-base_service: &base_service
     - PORT=11311
     - DISPLAY=${DISPLAY}
     - ROS_MASTER_URI=http://192.168.55.1:11311
-#    - ROS_MASTER_URI=http://10.0.0.99:11311
+    #    - ROS_MASTER_URI=http://10.0.0.99:11311
     - ROS_IP=192.168.55.1
-#    - ROS_IP=10.0.0.99
+  #    - ROS_IP=10.0.0.99
   volumes:
     - .:/run/detect
     - /tmp/.X11-unix:/tmp/.X11-unix
@@ -57,10 +57,19 @@ services:
     profiles: [ "cpu" ]
     command: [
       "python3", "/run/detect/detect/detect_image.py",
-      "-m", "/run/detect/best_1.pt",
+      "-m", "/run/detect/model.pt",
       "-c", "0.6",
       "-i", "camera/raw"
     ]
+
+  detect_v2:
+    <<: *base_service
+    runtime: nvidia
+    platform: linux/arm64
+    build:
+      context: ./detect_v2
+      dockerfile: detect_v2/Dockerfile
+    command: ["./detect", "0.6", "camera/raw"]
 
   img_detect_gpu:
     <<: [ *img_detect, *with_gpu ]

@@ -11,8 +11,6 @@ RUN yes | do-release-upgrade
 
 # endregion updte from 18.04 to 20.04
 
-RUN apt-key adv --keyserver 'keyserver.ubuntu.com' --recv-key 1A127079A92F09ED
-
 RUN apt-get update \
  && apt-get install -y locales lsb-release curl
 ENV DEBIAN_FRONTEND=noninteractive \

@@ -5,10 +5,10 @@ x-base_service: &base_service
     - IP_ADDRESS=192.168.55.1
     - PORT=11311
     - DISPLAY=${DISPLAY}
-#    - ROS_MASTER_URI=http://192.168.55.1:11311
-    - ROS_MASTER_URI=http://10.0.0.99:11311
-#    - ROS_IP=192.168.55.1
-    - ROS_IP=10.0.0.99
+    - ROS_MASTER_URI=http://192.168.55.1:11311
+#    - ROS_MASTER_URI=http://10.0.0.99:11311
+    - ROS_IP=192.168.55.1
+#    - ROS_IP=10.0.0.99
   volumes:
     - .:/run/detect
     - /tmp/.X11-unix:/tmp/.X11-unix
@@ -29,7 +29,7 @@ services:
   roscore:
     <<: *base_service
     image: arm64v8/ros:noetic-ros-core
-    #    image: osrf/ros:noetic-desktop-full
+    platform: linux/arm64
     profiles: [ "core" ]
     command: [ "roscore", "-v" ]
     healthcheck:
@@ -65,6 +65,7 @@ services:
     <<: *base_service
     runtime: nvidia
     platform: linux/arm64
+    image: detectv2:latest
     build:
       context: ./detect_v2
       dockerfile: Dockerfile

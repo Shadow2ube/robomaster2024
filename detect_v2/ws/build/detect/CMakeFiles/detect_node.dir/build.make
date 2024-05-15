@@ -90,6 +90,14 @@ detect_node_EXTERNAL_OBJECTS =
 
 /ws/devel/.private/detect/lib/detect/detect_node: CMakeFiles/detect_node.dir/src/main.cpp.o
 /ws/devel/.private/detect/lib/detect/detect_node: CMakeFiles/detect_node.dir/build.make
+/ws/devel/.private/detect/lib/detect/detect_node: /opt/ros/melodic/lib/libroscpp.so
+/ws/devel/.private/detect/lib/detect/detect_node: /usr/lib/x86_64-linux-gnu/libboost_filesystem.so
+/ws/devel/.private/detect/lib/detect/detect_node: /opt/ros/melodic/lib/librosconsole.so
+/ws/devel/.private/detect/lib/detect/detect_node: /opt/ros/melodic/lib/librosconsole_log4cxx.so
+/ws/devel/.private/detect/lib/detect/detect_node: /opt/ros/melodic/lib/librosconsole_backend_interface.so
+/ws/devel/.private/detect/lib/detect/detect_node: /usr/lib/x86_64-linux-gnu/liblog4cxx.so
+/ws/devel/.private/detect/lib/detect/detect_node: /usr/lib/x86_64-linux-gnu/libboost_regex.so
+/ws/devel/.private/detect/lib/detect/detect_node: /opt/ros/melodic/lib/libxmlrpcpp.so
 /ws/devel/.private/detect/lib/detect/detect_node: /opt/ros/melodic/lib/libroscpp_serialization.so
 /ws/devel/.private/detect/lib/detect/detect_node: /opt/ros/melodic/lib/librostime.so
 /ws/devel/.private/detect/lib/detect/detect_node: /opt/ros/melodic/lib/libcpp_common.so

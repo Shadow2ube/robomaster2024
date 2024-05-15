@@ -25,6 +25,19 @@
       <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/gtest/googlemock/gtest/CMakeFiles/gtest_main.dir/src" />
       <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/test_results" />
       <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/logs" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/CMakeFiles/roscpp_generate_messages_cpp.dir" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/CMakeFiles/roscpp_generate_messages_eus.dir" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/CMakeFiles/roscpp_generate_messages_lisp.dir" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/CMakeFiles/roscpp_generate_messages_nodejs.dir" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/CMakeFiles/roscpp_generate_messages_py.dir" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/CMakeFiles/rosgraph_msgs_generate_messages_cpp.dir" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/CMakeFiles/rosgraph_msgs_generate_messages_eus.dir" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/CMakeFiles/rosgraph_msgs_generate_messages_lisp.dir" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/CMakeFiles/rosgraph_msgs_generate_messages_nodejs.dir" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/CMakeFiles/rosgraph_msgs_generate_messages_py.dir" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/devel/.private/detect/lib/detect" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/devel/lib/detect" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/devel/share/detect" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.11 (deepsort)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

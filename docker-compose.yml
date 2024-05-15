@@ -5,10 +5,10 @@ x-base_service: &base_service
     - IP_ADDRESS=192.168.55.1
     - PORT=11311
     - DISPLAY=${DISPLAY}
-    - ROS_MASTER_URI=http://192.168.55.1:11311
-    #    - ROS_MASTER_URI=http://10.0.0.99:11311
-    - ROS_IP=192.168.55.1
-  #    - ROS_IP=10.0.0.99
+#    - ROS_MASTER_URI=http://192.168.55.1:11311
+    - ROS_MASTER_URI=http://10.0.0.99:11311
+#    - ROS_IP=192.168.55.1
+    - ROS_IP=10.0.0.99
   volumes:
     - .:/run/detect
     - /tmp/.X11-unix:/tmp/.X11-unix
@@ -48,7 +48,6 @@ services:
 
   img_detect: &img_detect
     <<: *base_service
-    image: robomaster2024-detect:latest
     runtime: nvidia
     platform: linux/arm64
     build:
@@ -68,8 +67,9 @@ services:
     platform: linux/arm64
     build:
       context: ./detect_v2
-      dockerfile: detect_v2/Dockerfile
-    command: ["./detect", "0.6", "camera/raw"]
+      dockerfile: Dockerfile
+    profiles: [ "v2" ]
+    command: ["rosrun", "detect", "detect_node", "0.6", "camera/raw"]
 
   img_detect_gpu:
     <<: [ *img_detect, *with_gpu ]

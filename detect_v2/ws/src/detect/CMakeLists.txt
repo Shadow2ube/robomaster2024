@@ -3,7 +3,8 @@ project(detect)
 
 set(CXX_STANDARD 17)
 
-set(CMAKE_PREFIX_PATH /opt/ros/melodic/share:${CMAKE_PREFIX_PATH})
+# set(CMAKE_PREFIX_PATH /opt/ros/melodic/share)
+# message(${CMAKE_PREFIX_PATH})
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)

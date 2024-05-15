@@ -1,2 +1,6 @@
 cmake-build-*
 *.log
+ws/.catkin_tools
+ws/build
+ws/devel
+ws/logs

@@ -48,7 +48,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends -o Dpkg::Option
     ros-${ROS_DISTRO}-std-msgs \
     ros-${ROS_DISTRO}-sensor-msgs \
     ros-${ROS_DISTRO}-geometry-msgs \
-    ros-${ROS_DISTRO}-cv-bridge
+    ros-${ROS_DISTRO}-cv-bridge \
+    ros-${ROS_DISTRO}-roscpp
 RUN apt-get install -y python3-rosdep
 RUN rosdep init \
     && rosdep fix-permissions \

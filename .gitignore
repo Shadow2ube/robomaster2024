@@ -1,7 +1,7 @@
 # Project exclude paths
 /.venv/
 /testing/*
-.catkin_tools
-build
-devel
-logs
+**/.catkin_tools
+**/build
+**/devel
+**/logs

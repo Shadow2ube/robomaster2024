@@ -16,7 +16,7 @@ ENV LANG=C.UTF-8
 ENV LC_ALL=C.UTF-8
 
 RUN apt-get update \
-    && apt-get update -y \
+    && apt-get upgrade -y \
     && apt-get install -y locales lsb-release curl
 ENV DEBIAN_FRONTEND=noninteractive \
     ROS_DISTRO=noetic

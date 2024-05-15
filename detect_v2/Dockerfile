@@ -27,19 +27,23 @@ RUN dpkg-reconfigure locales
 RUN echo "\nPackage: libopencv-dev\nPin: release *\nPin-Priority: -1\n" >> /etc/apt/preferences
 #RUN apt-mark hold libopencv-dev opencv-dev opencv-libs opencv-main opencv-scripts opencv-python opencv-licenses \
 
-RUN rm /etc/localtime && echo 'Etc/UTC' > /etc/timezone \
-    && ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime \
-    && apt-get update \
-    && apt-get install -q -y --no-install-recommends tzdata \
-    && rm -rf /var/lib/apt/lists/*
+RUN echo 'Etc/UTC' > /etc/timezone && \
+    ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
+    apt-get update && \
+    apt-get install -q -y --no-install-recommends tzdata && \
+    rm -rf /var/lib/apt/lists/*
 
+# install packages
 RUN apt-get update && apt-get install -q -y --no-install-recommends \
     dirmngr \
     gnupg2 \
     && rm -rf /var/lib/apt/lists/*
 
-RUN echo "deb http://snapshots.ros.org/melodic/final/ubuntu bionic main" > /etc/apt/sources.list.d/ros1-snapshots.list \
-    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 4B63CF8FDE49746E98FA01DDAD19BAB3CBF125EA
+# setup keys
+RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 4B63CF8FDE49746E98FA01DDAD19BAB3CBF125EA
+
+# setup sources.list
+RUN echo "deb http://snapshots.ros.org/melodic/final/ubuntu bionic main" > /etc/apt/sources.list.d/ros1-snapshots.list
 
 ENV ROS_DISTRO=melodic
 RUN apt-get update && apt-get install -y --no-install-recommends \

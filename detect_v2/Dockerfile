@@ -94,7 +94,9 @@ source /ws/devel/setup.bash\n\
 cd /ws\n\
 /usr/bin/catkin clean -y --deinit\n\
 /usr/bin/catkin init \n\
-/usr/bin/catkin build \n"
+/usr/bin/catkin build \n" > /ws/build.sh \
+    && chmod +x /ws/build.sh \
+    && ./build.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
 

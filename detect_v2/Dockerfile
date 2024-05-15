@@ -77,7 +77,7 @@ ADD ./ws /
 
 WORKDIR /ws
 
-RUN source /usr/bin/catkin build
+RUN /usr/bin/catkin build
 
 ENTRYPOINT ["/entrypoint.sh"]
 

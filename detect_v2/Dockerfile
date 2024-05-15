@@ -68,7 +68,7 @@ RUN useradd -m --uid 1000 dockeruser \
     && groupmod --gid 985 video \
     && usermod -a -G video dockeruser
 
-RUN apt-get install -y cmake cmake gcc g++
+RUN apt-get install -y cmake make gcc g++ python3-catkin-tools
 
 USER dockeruser
 

@@ -24,7 +24,7 @@ RUN dpkg-reconfigure locales
 
 # region Install ROS
 
-RUN echo "\nPackage: libopencv-dev\nPin: release *\nPin-Priority: -1\n" >> /etc/apt/preferences \
+RUN echo "\nPackage: libopencv-dev\nPin: release *\nPin-Priority: -1\n" >> /etc/apt/preferences
 #RUN apt-mark hold libopencv-dev opencv-dev opencv-libs opencv-main opencv-scripts opencv-python opencv-licenses \
 
 RUN echo 'Etc/UTC' > /etc/timezone && \

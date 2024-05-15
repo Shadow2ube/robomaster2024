@@ -61,11 +61,12 @@ RUN mkdir -p /opt/detect
 
 COPY --from=pt_to_onnx /model.onnx /opt/detect/
 
-RUN chown dockeruser:dockeruser /opt/detect -R  \
+RUN useradd -m --uid 1000 dockeruser \
+    && chown dockeruser:dockeruser /opt/detect -R  \
     && echo "#!/bin/bash\nset -e\nsource /opt/ros/${ROS_DISTRO}/setup.bash --\nsource /ws/devel/setup.bash\nexec \"\$@\"" > /entrypoint.sh \
     && chmod +x /entrypoint.sh \
     && groupmod --gid 985 video \
-    && useradd -m --uid 1000 dockeruser && usermod -a -G video dockeruser
+    && usermod -a -G video dockeruser
 
 RUN apt-get install -y cmake cmake gcc g++
 

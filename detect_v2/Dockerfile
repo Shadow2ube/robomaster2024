@@ -71,6 +71,7 @@ RUN useradd -m --uid 1000 dockeruser \
 RUN apt-get install -y cmake make gcc g++ python3-catkin-tools
 
 ADD ./ws /ws
+RUN chown -R dockeruser:dockeruser /ws
 
 WORKDIR /ws
 

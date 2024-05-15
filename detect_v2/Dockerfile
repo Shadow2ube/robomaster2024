@@ -75,9 +75,9 @@ USER dockeruser
 
 ADD ./ws /
 
-WORKDIR ws
+WORKDIR /ws
 
-RUN catkin build
+RUN source /opt/ros/${ROS_DISTRO}/setup/bash && source /ws/devel/setup.bash && catkin build
 
 ENTRYPOINT ["/entrypoint.sh"]
 

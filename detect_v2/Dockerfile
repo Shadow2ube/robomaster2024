@@ -27,11 +27,11 @@ RUN dpkg-reconfigure locales
 RUN echo "\nPackage: libopencv-dev\nPin: release *\nPin-Priority: -1\n" >> /etc/apt/preferences
 #RUN apt-mark hold libopencv-dev opencv-dev opencv-libs opencv-main opencv-scripts opencv-python opencv-licenses \
 
-RUN echo 'Etc/UTC' > /etc/timezone && \
-    ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime && \
-    apt-get update && \
-    apt-get install -q -y --no-install-recommends tzdata && \
-    rm -rf /var/lib/apt/lists/*
+RUN rm /etc/localtime && echo 'Etc/UTC' > /etc/timezone \
+    && ln -s /usr/share/zoneinfo/Etc/UTC /etc/localtime \
+    && apt-get update \
+    && apt-get install -q -y --no-install-recommends tzdata \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -q -y --no-install-recommends \
     dirmngr \

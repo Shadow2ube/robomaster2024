@@ -3,6 +3,27 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/catkin_tools_prebuild/CMakeFiles/3.10.2/CompilerIdC/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/catkin_tools_prebuild/CMakeFiles/3.10.2/CompilerIdCXX/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/catkin_tools_prebuild/CMakeFiles/CMakeTmp" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/catkin_tools_prebuild/gtest/googlemock/CMakeFiles/gmock.dir/__" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/catkin_tools_prebuild/gtest/googlemock/CMakeFiles/gmock.dir/src" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/catkin_tools_prebuild/gtest/googlemock/CMakeFiles/gmock_main.dir/__" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/catkin_tools_prebuild/gtest/googlemock/CMakeFiles/gmock_main.dir/src" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/catkin_tools_prebuild/gtest/googlemock/gtest/CMakeFiles/gtest.dir/src" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/catkin_tools_prebuild/gtest/googlemock/gtest/CMakeFiles/gtest_main.dir/src" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/catkin_tools_prebuild/test_results" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/CMakeFiles/3.10.2/CompilerIdC/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/CMakeFiles/3.10.2/CompilerIdCXX/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/CMakeFiles/CMakeTmp" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/gtest/googlemock/CMakeFiles/gmock.dir/__" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/gtest/googlemock/CMakeFiles/gmock.dir/src" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/gtest/googlemock/CMakeFiles/gmock_main.dir/__" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/gtest/googlemock/CMakeFiles/gmock_main.dir/src" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/gtest/googlemock/gtest/CMakeFiles/gtest.dir/src" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/gtest/googlemock/gtest/CMakeFiles/gtest_main.dir/src" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/build/detect/test_results" />
+      <excludeFolder url="file://$MODULE_DIR$/detect_v2/ws/logs" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.11 (deepsort)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

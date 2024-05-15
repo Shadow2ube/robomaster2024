@@ -1,5 +1,7 @@
 FROM ubuntu:focal as pt_to_onnx
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 ARG MODEL_PATH=./model.pt
 ADD ${MODEL_PATH} /model.pt
 

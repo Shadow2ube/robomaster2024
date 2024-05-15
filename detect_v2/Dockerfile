@@ -44,7 +44,7 @@ RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com --recv-keys 4B63CF8FDE497
 RUN echo "deb http://snapshots.ros.org/melodic/final/ubuntu bionic main" > /etc/apt/sources.list.d/ros1-snapshots.list
 
 ENV ROS_DISTRO=melodic
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install -y --no-install-recommends -o Dpkg::Options::="--force-overwrite" \
     ros-${ROS_DISTRO}-std-msgs \
     ros-${ROS_DISTRO}-sensor-msgs \
     ros-${ROS_DISTRO}-geometry-msgs \

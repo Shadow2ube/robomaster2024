@@ -1,0 +1,21 @@
+[35m[1mScanning dependencies of target detect_node[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/detect_node.dir/src/main.cpp.o[0m
+[01m[K/ws/src/detect/src/main.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[01m[K/ws/src/detect/src/main.cpp:50:24:[m[K [01;31m[Kerror: [m[K‘[01m[Kchrono_literals[m[K’ is not a namespace-name
+   using namespace std::[01;31m[Kchrono_literals[m[K;
+                        [01;31m[K^~~~~~~~~~~~~~~[m[K
+[01m[K/ws/src/detect/src/main.cpp:50:39:[m[K [01;31m[Kerror: [m[Kexpected namespace-name before ‘[01m[K;[m[K’ token
+   using namespace std::chrono_literals[01;31m[K;[m[K
+                                       [01;31m[K^[m[K
+[01m[K/ws/src/detect/src/main.cpp:52:10:[m[K [01;31m[Kerror: [m[K‘[01m[Kstd::this_thread[m[K’ has not been declared
+     std::[01;31m[Kthis_thread[m[K::sleep_for(2ms);
+          [01;31m[K^~~~~~~~~~~[m[K
+[01m[K/ws/src/detect/src/main.cpp:52:33:[m[K [01;31m[Kerror: [m[Kunable to find numeric literal operator ‘[01m[Koperator""ms[m[K’
+     std::this_thread::sleep_for([01;31m[K2ms[m[K);
+                                 [01;31m[K^~~[m[K
+CMakeFiles/detect_node.dir/build.make:62: recipe for target 'CMakeFiles/detect_node.dir/src/main.cpp.o' failed
+make[2]: *** [CMakeFiles/detect_node.dir/src/main.cpp.o] Error 1
+CMakeFiles/Makefile2:1027: recipe for target 'CMakeFiles/detect_node.dir/all' failed
+make[1]: *** [CMakeFiles/detect_node.dir/all] Error 2
+Makefile:140: recipe for target 'all' failed
+make: *** [all] Error 2

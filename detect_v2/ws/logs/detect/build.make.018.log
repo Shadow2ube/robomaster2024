@@ -1,0 +1,69 @@
+[35m[1mScanning dependencies of target detect_node[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/detect_node.dir/src/main.cpp.o[0m
+[01m[K/ws/src/detect/src/main.cpp:[m[K In function ‘[01m[Kint main(int, char**)[m[K’:
+[01m[K/ws/src/detect/src/main.cpp:53:54:[m[K [01;31m[Kerror: [m[K‘[01m[KString[m[K’ is not a member of ‘[01m[Kstd_msgs[m[K’
+   ros::Publisher chatter_pub = n.advertise<std_msgs::[01;31m[KString[m[K>("chatter", 1000);
+                                                      [01;31m[K^~~~~~[m[K
+[01m[K/ws/src/detect/src/main.cpp:53:54:[m[K [01;36m[Knote: [m[Ksuggested alternative:
+In file included from [01m[K/usr/include/opencv2/core/base.hpp:58:0[m[K,
+                 from [01m[K/usr/include/opencv2/core.hpp:54[m[K,
+                 from [01m[K/usr/include/opencv2/core/core.hpp:48[m[K,
+                 from [01m[K/opt/ros/melodic/include/cv_bridge/cv_bridge.h:43[m[K,
+                 from [01m[K/ws/src/detect/src/main.cpp:12[m[K:
+[01m[K/usr/include/opencv2/core/cvstd.hpp:477:18:[m[K [01;36m[Knote: [m[K  ‘[01m[Kcv::String[m[K’
+ class CV_EXPORTS [01;36m[KString[m[K
+                  [01;36m[K^~~~~~[m[K
+[01m[K/ws/src/detect/src/main.cpp:53:54:[m[K [01;31m[Kerror: [m[K‘[01m[KString[m[K’ is not a member of ‘[01m[Kstd_msgs[m[K’
+   ros::Publisher chatter_pub = n.advertise<std_msgs::[01;31m[KString[m[K>("chatter", 1000);
+                                                      [01;31m[K^~~~~~[m[K
+[01m[K/ws/src/detect/src/main.cpp:53:54:[m[K [01;36m[Knote: [m[Ksuggested alternative:
+In file included from [01m[K/usr/include/opencv2/core/base.hpp:58:0[m[K,
+                 from [01m[K/usr/include/opencv2/core.hpp:54[m[K,
+                 from [01m[K/usr/include/opencv2/core/core.hpp:48[m[K,
+                 from [01m[K/opt/ros/melodic/include/cv_bridge/cv_bridge.h:43[m[K,
+                 from [01m[K/ws/src/detect/src/main.cpp:12[m[K:
+[01m[K/usr/include/opencv2/core/cvstd.hpp:477:18:[m[K [01;36m[Knote: [m[K  ‘[01m[Kcv::String[m[K’
+ class CV_EXPORTS [01;36m[KString[m[K
+                  [01;36m[K^~~~~~[m[K
+[01m[K/ws/src/detect/src/main.cpp:53:77:[m[K [01;31m[Kerror: [m[Kno matching function for call to ‘[01m[Kros::NodeHandle::advertise<<expression error> >(const char [8], int)[m[K’
+   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000[01;31m[K)[m[K;
+                                                                             [01;31m[K^[m[K
+In file included from [01m[K/opt/ros/melodic/include/ros/ros.h:45:0[m[K,
+                 from [01m[K/ws/src/detect/src/main.cpp:6[m[K:
+[01m[K/opt/ros/melodic/include/ros/node_handle.h:249:15:[m[K [01;36m[Knote: [m[Kcandidate: template<class M> ros::Publisher ros::NodeHandle::advertise(const string&, uint32_t, bool)
+     Publisher [01;36m[Kadvertise[m[K(const std::string& topic, uint32_t queue_size, bool latch = false)
+               [01;36m[K^~~~~~~~~[m[K
+[01m[K/opt/ros/melodic/include/ros/node_handle.h:249:15:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/ws/src/detect/src/main.cpp:53:77:[m[K [01;31m[Kerror: [m[Ktemplate argument 1 is invalid
+   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000[01;31m[K)[m[K;
+                                                                             [01;31m[K^[m[K
+In file included from [01m[K/opt/ros/melodic/include/ros/ros.h:45:0[m[K,
+                 from [01m[K/ws/src/detect/src/main.cpp:6[m[K:
+[01m[K/opt/ros/melodic/include/ros/node_handle.h:315:13:[m[K [01;36m[Knote: [m[Kcandidate: template<class M> ros::Publisher ros::NodeHandle::advertise(const string&, uint32_t, const SubscriberStatusCallback&, const SubscriberStatusCallback&, const VoidConstPtr&, bool)
+   Publisher [01;36m[Kadvertise[m[K(const std::string& topic, uint32_t queue_size,
+             [01;36m[K^~~~~~~~~[m[K
+[01m[K/opt/ros/melodic/include/ros/node_handle.h:315:13:[m[K [01;36m[Knote: [m[K  template argument deduction/substitution failed:
+[01m[K/ws/src/detect/src/main.cpp:53:77:[m[K [01;31m[Kerror: [m[Ktemplate argument 1 is invalid
+   ros::Publisher chatter_pub = n.advertise<std_msgs::String>("chatter", 1000[01;31m[K)[m[K;
+                                                                             [01;31m[K^[m[K
+[01m[K/ws/src/detect/src/main.cpp:67:15:[m[K [01;31m[Kerror: [m[K‘[01m[KString[m[K’ is not a member of ‘[01m[Kstd_msgs[m[K’
+     std_msgs::[01;31m[KString[m[K msg;
+               [01;31m[K^~~~~~[m[K
+[01m[K/ws/src/detect/src/main.cpp:67:15:[m[K [01;36m[Knote: [m[Ksuggested alternative:
+In file included from [01m[K/usr/include/opencv2/core/base.hpp:58:0[m[K,
+                 from [01m[K/usr/include/opencv2/core.hpp:54[m[K,
+                 from [01m[K/usr/include/opencv2/core/core.hpp:48[m[K,
+                 from [01m[K/opt/ros/melodic/include/cv_bridge/cv_bridge.h:43[m[K,
+                 from [01m[K/ws/src/detect/src/main.cpp:12[m[K:
+[01m[K/usr/include/opencv2/core/cvstd.hpp:477:18:[m[K [01;36m[Knote: [m[K  ‘[01m[Kcv::String[m[K’
+ class CV_EXPORTS [01;36m[KString[m[K
+                  [01;36m[K^~~~~~[m[K
+[01m[K/ws/src/detect/src/main.cpp:71:5:[m[K [01;31m[Kerror: [m[K‘[01m[Kmsg[m[K’ was not declared in this scope
+     [01;31m[Kmsg[m[K.data = ss.str();
+     [01;31m[K^~~[m[K
+CMakeFiles/detect_node.dir/build.make:62: recipe for target 'CMakeFiles/detect_node.dir/src/main.cpp.o' failed
+make[2]: *** [CMakeFiles/detect_node.dir/src/main.cpp.o] Error 1
+CMakeFiles/Makefile2:1027: recipe for target 'CMakeFiles/detect_node.dir/all' failed
+make[1]: *** [CMakeFiles/detect_node.dir/all] Error 2
+Makefile:140: recipe for target 'all' failed
+make: *** [all] Error 2

@@ -1,0 +1,6 @@
+detect
+/ws/devel/.private/detect/cmake.lock /ws/devel/./cmake.lock
+/ws/devel/.private/detect/lib/pkgconfig/detect.pc /ws/devel/lib/pkgconfig/detect.pc
+/ws/devel/.private/detect/lib/detect/detect_node /ws/devel/lib/detect/detect_node
+/ws/devel/.private/detect/share/detect/cmake/detectConfig.cmake /ws/devel/share/detect/cmake/detectConfig.cmake
+/ws/devel/.private/detect/share/detect/cmake/detectConfig-version.cmake /ws/devel/share/detect/cmake/detectConfig-version.cmake

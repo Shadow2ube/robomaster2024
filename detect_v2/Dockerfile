@@ -77,9 +77,21 @@ WORKDIR /ws
 
 USER dockeruser
 
-RUN bash -c "/entrypoint.sh && /usr/bin/catkin clean -y --deinit \
+ENV LD_LIBRARY_PATH=/opt/ros/${ROS_DISTRO}/lib \
+    ROS_ETC_DIR=/opt/ros/${ROS_DISTRO}/etc/ros \
+    CMAKE_PREFIX_PATH=/opt/ros/${ROS_DISTRO} \
+    ROS_ROOT=/opt/ros/${ROS_DISTRO}/share/ros \
+    ROS_VERSION=1 \
+    ROS_PYTHON_VERSION=2 \
+    PYTHONPATH=/opt/ros/${ROS_DISTRO}/lib/python2.7/dist-packages \
+    ROS_PACKAGE_PATH=/opt/ros/${ROS_DISTRO}/share \
+    PATH=/opt/ros/${ROS_DISTRO}/bin:${PATH} \
+    PKG_CONFIG_PATH=/opt/ros/${ROS_DISTRO}/lib/pkgconfig
+
+
+RUN /usr/bin/catkin clean -y --deinit \
     && /usr/bin/catkin init \
-    && /usr/bin/catkin build"
+    && /usr/bin/catkin build
 
 ENTRYPOINT ["/entrypoint.sh"]
 

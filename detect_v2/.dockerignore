@@ -1,1 +1,5 @@
 cmake-build-*
+.catkin_tools
+build
+devel
+logs

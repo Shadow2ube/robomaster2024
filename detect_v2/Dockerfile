@@ -77,7 +77,9 @@ WORKDIR /ws
 
 USER dockeruser
 
-RUN /usr/bin/catkin build
+RUN /usr/bin/catkin clean -y --deinit \
+    && /usr/bin/catkin init \
+    && /usr/bin/catkin build
 
 ENTRYPOINT ["/entrypoint.sh"]
 

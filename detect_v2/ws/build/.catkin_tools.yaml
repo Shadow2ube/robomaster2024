@@ -1,0 +1,6 @@
+devel_space: /ws/devel
+install: false
+install_space: /ws/install
+profile: default
+source_space: /ws/src
+workspace: /ws

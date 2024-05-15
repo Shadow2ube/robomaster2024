@@ -77,9 +77,9 @@ WORKDIR /ws
 
 USER dockeruser
 
-RUN /usr/bin/catkin clean -y --deinit \
+RUN bash -c "/ros_entrypoint.sh && /usr/bin/catkin clean -y --deinit \
     && /usr/bin/catkin init \
-    && /usr/bin/catkin build
+    && /usr/bin/catkin build"
 
 ENTRYPOINT ["/entrypoint.sh"]
 

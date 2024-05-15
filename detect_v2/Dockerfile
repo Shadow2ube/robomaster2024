@@ -77,7 +77,7 @@ ADD ./ws /
 
 WORKDIR /ws
 
-RUN source /opt/ros/${ROS_DISTRO}/setup/bash && source /ws/devel/setup.bash && catkin build
+RUN source /usr/bin/catkin build
 
 ENTRYPOINT ["/entrypoint.sh"]
 

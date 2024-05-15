@@ -70,12 +70,11 @@ RUN useradd -m --uid 1000 dockeruser \
 
 RUN apt-get install -y cmake make gcc g++ python3-catkin-tools
 
-USER dockeruser
-
-
-ADD ./ws /
+ADD ./ws /ws
 
 WORKDIR /ws
+
+USER dockeruser
 
 RUN /usr/bin/catkin build
 

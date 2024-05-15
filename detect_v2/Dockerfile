@@ -89,14 +89,10 @@ ENV LD_LIBRARY_PATH=/opt/ros/${ROS_DISTRO}/lib \
     PATH=/opt/ros/${ROS_DISTRO}/bin:${PATH} \
     PKG_CONFIG_PATH=/opt/ros/${ROS_DISTRO}/lib/pkgconfig
 
-RUN echo "#!/bin/bash\n\
-source /ws/devel/setup.bash\n\
-cd /ws\n\
-/usr/bin/catkin clean -y --deinit\n\
-/usr/bin/catkin init \n\
-/usr/bin/catkin build \n" > /ws/build.sh \
-    && chmod +x /ws/build.sh \
-    && ./build.sh
+
+RUN /usr/bin/catkin clean -y --deinit \
+    && /usr/bin/catkin init \
+    && /usr/bin/catkin build
 
 ENTRYPOINT ["/entrypoint.sh"]
 

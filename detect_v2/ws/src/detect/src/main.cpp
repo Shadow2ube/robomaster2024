@@ -13,6 +13,8 @@
 #include <cv_bridge/cv_bridge.h>
 #include <opencv2/opencv.hpp>
 
+#include <onnxruntime_cxx_api.h>
+
 using namespace cv;
 using namespace cv::dnn;
 

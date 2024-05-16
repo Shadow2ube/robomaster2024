@@ -18,7 +18,7 @@
 using namespace cv;
 using namespace cv::dnn;
 
-std::string model_path = "/opt/detect/model.onnx"
+std::string model_path = "/opt/detect/model.onnx";
 Ort::Session session;
 
 ros::Publisher target_pub;

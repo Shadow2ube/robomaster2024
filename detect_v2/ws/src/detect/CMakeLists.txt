@@ -152,6 +152,8 @@ add_executable(${PROJECT_NAME}_node src/main.cpp)
 ## Specify libraries to link a library or executable target against
 target_link_libraries(${PROJECT_NAME}_node
   ${catkin_LIBRARIES}
+  ${OpenCV_LIBS}
+  "onnxruntime"
 )
 
 set(ONNX_RUNTIME_PATH "/opt/onnxruntime")
@@ -161,9 +163,6 @@ target_include_directories(${PROJECT_NAME}_node PUBLIC
     "${ONNX_RUNTIME_PATH}/include")
 #target_link_directories(${PROJECT_NAME}_node PUBLIC
 #    "${ONNX_RUNTIME_PATH}/lib")
-target_link_libraries(${PROJECT_NAME}_node PUBLIC
-    ${OpenCV_LIBS}
-    "onnxruntime")
 
 
 #############

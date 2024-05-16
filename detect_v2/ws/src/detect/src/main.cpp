@@ -47,8 +47,6 @@ void detect_callback(sensor_msgs::Image img) {
     return;
   }
    
-  }
-
   img_pub.publish(cv_ptr->toImageMsg());
 }
 

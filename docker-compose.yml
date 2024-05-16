@@ -70,7 +70,7 @@ services:
       context: ./detect_v2
       dockerfile: Dockerfile
     profiles: [ "v2" ]
-    command: ["rosrun", "detect", "detect_node", "0.6", "camera/raw"]
+    command: ["rosrun", "detect", "detect_node", "0.6", "camera/color/raw"]
     depends_on:
       roscore:
         condition: service_healthy

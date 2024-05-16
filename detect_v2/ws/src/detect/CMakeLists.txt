@@ -161,7 +161,7 @@ set(ONNX_RUNTIME_PATH "/opt/onnxruntime")
 target_include_directories(${PROJECT_NAME}_node PUBLIC
     "${OpenCV_INCLUDE_DIRS}"
     "${ONNX_RUNTIME_PATH}/include")
-#target_link_directories(${PROJECT_NAME}_node PUBLIC
+# target_link_directories(${PROJECT_NAME}_node PUBLIC
 #    "${ONNX_RUNTIME_PATH}/lib")
 
 

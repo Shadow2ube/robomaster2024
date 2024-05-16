@@ -16,6 +16,8 @@
 using namespace cv;
 using namespace cv::dnn;
 
+std::string model_path = "/opt/detect/model.onnx"
+Ort::Session session;
 
 ros::Publisher target_pub;
 ros::Publisher found_pub;
@@ -44,33 +46,7 @@ void detect_callback(sensor_msgs::Image img) {
     ROS_ERROR("cv_bridge exception: %s", e.what());
     return;
   }
-  
-  float x_factor = input_image.cols / INPUT_WIDTH;
-  float y_factor = input_image.rows / INPUT_HEIGHT;
-  float *data = (float *)outputs[0].data;
-  const int dimensions = 85;
-
-  const int rows = 25200;
-  for (int i = 0; i < rows; ++i) {
-    float confidence = data[4];
-    if (confidence >= SCORE_THRESHOLD) {
-      float *classes_scores = data + 5;
-      Mat scores(1, class_name.size(), CV_32FC1, classes_scores);
-
-      Point class_id;
-      double max_class_score;
-      minMaxLoc(scores, 0, &max_class_score, 0, &class_id);
-
-      if (max_class_score > SCORE_THRESHOLD) {
-
-        float cx = data[0];
-        float cy = data[1];
-
-        ROS_INFO("object of ID: %i (%f) at (%f, %f)", class_id, max_class_score, cx, cy);
-      }
-    }
-    // Jump to the next row.
-    data += 85;
+   
   }
 
   img_pub.publish(cv_ptr->toImageMsg());
@@ -92,6 +68,11 @@ int main(int argc, char **argv) {
     ROS_ERROR("%s", e.what());
     return 2;
   }
+
+  Ort::Env env(ORT_LOGGING_LEVEL_WARNING, "YOLOv8");
+  Ort::SessionOptions options;
+  Ort::ThrowOnError(OrtSessionOptionsAppendExecutionProvider_CUDA(options, 0));
+  session Ort::Session(env, model_path.c_str(), options);
 
   ros::init(argc, argv, "detect");
   ros::NodeHandle n;

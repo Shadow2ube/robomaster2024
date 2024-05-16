@@ -19,7 +19,10 @@ using namespace cv;
 using namespace cv::dnn;
 
 std::string model_path = "/opt/detect/model.onnx";
-Ort::Session session;
+Ort::Env env(ORT_LOGGING_LEVEL_WARNING, "YOLOv8");
+Ort::SessionOptions options;
+Ort::ThrowOnError(OrtSessionOptionsAppendExecutionProvider_CUDA(options, 0));
+Ort::Session session Ort::Session(env, model_path.c_str(), options);
 
 ros::Publisher target_pub;
 ros::Publisher found_pub;
@@ -68,11 +71,6 @@ int main(int argc, char **argv) {
     ROS_ERROR("%s", e.what());
     return 2;
   }
-
-  Ort::Env env(ORT_LOGGING_LEVEL_WARNING, "YOLOv8");
-  Ort::SessionOptions options;
-  Ort::ThrowOnError(OrtSessionOptionsAppendExecutionProvider_CUDA(options, 0));
-  session Ort::Session(env, model_path.c_str(), options);
 
   ros::init(argc, argv, "detect");
   ros::NodeHandle n;

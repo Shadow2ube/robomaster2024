@@ -108,6 +108,12 @@ services:
     privileged: true
     command: [
       "roslaunch", "realsense2_camera", "rs_camera.launch",
+      "color_width:=640",
+      "color_height:=480",
+      "color_fp:=30",
+      "enable_infra1:=false",
+      "enable_infra2:=false",
+      "enable_depth:=false",
       "initial_reset:=true",
       #"depth_module.depth_profile:=1280x720x30",
     ]

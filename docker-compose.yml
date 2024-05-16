@@ -71,6 +71,9 @@ services:
       dockerfile: Dockerfile
     profiles: [ "v2" ]
     command: ["rosrun", "detect", "detect_node", "0.6", "camera/raw"]
+    depends_on:
+      roscore:
+        condition: service_healthy
 
   img_detect_gpu:
     <<: [ *img_detect, *with_gpu ]
@@ -100,7 +103,6 @@ services:
       "depth_module.depth_profile:=1280x720x30",
       "initial_reset:=true",
     ]
-
     depends_on:
       roscore:
         condition: service_healthy

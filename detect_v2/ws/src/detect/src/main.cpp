@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
     precision = atof(argv[1]);
     outpath = argv[2];
   } catch (std::exception &e) {
-    ROS_ERROR(e.what());
+    ROS_ERROR("%s", e.what());
     return 2;
   }
 

@@ -4,11 +4,6 @@ project(detect)
 set(CXX_STANDARD 17)
 
 find_package(OpenCV REQUIRED)
-set(ONNX_RUNTIME_PATH "/opt/onnxruntime")
-
-target_include_directories(${PROJECT_NAME}_node PUBLIC
-    "${OpenCV_INCLUDE_DIRS}"
-    "${ONNX_RUNTIME_PATH}/include")
 
 # set(CMAKE_PREFIX_PATH /opt/ros/melodic/share)
 # message(${CMAKE_PREFIX_PATH})
@@ -159,6 +154,11 @@ target_link_libraries(${PROJECT_NAME}_node
   ${catkin_LIBRARIES}
 )
 
+set(ONNX_RUNTIME_PATH "/opt/onnxruntime")
+
+target_include_directories(${PROJECT_NAME}_node PUBLIC
+    "${OpenCV_INCLUDE_DIRS}"
+    "${ONNX_RUNTIME_PATH}/include")
 target_link_directories(${PROJECT_NAME}_node PUBLIC
     "${ONNX_RUNTIME_PATH}/lib")
 target_link_libraries(${PROJECT_NAME}_node PUBLIC

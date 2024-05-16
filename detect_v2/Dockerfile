@@ -72,7 +72,7 @@ RUN useradd -m --uid 1000 dockeruser \
 
 RUN apt-get install -y cmake make gcc g++ python3-catkin-tools
 
-RUN echo hi && wget https://github.com/microsoft/onnxruntime/releases/download/v1.15.1/onnxruntime-linux-x64-gpu-1.15.1.tgz \
+RUN cd /opt && wget https://github.com/microsoft/onnxruntime/releases/download/v1.15.1/onnxruntime-linux-x64-gpu-1.15.1.tgz \
     && tar -xf onnxruntime-linux-x64-gpu-1.15.1.tgz \
     && mv onnxruntime-linux-x64-gpu-1.15.1 /opt/onnxruntime
 

@@ -75,7 +75,7 @@ RUN apt-get install -y cmake make gcc g++ python3-catkin-tools
 WORKDIR /tmp
 RUN wget https://github.com/microsoft/onnxruntime/releases/download/v1.17.3/onnxruntime-linux-aarch64-1.17.3.tgz
 RUN tar -xvf onnxruntime-linux-aarch64-1.17.3.tgz
-RUN mv onnxruntime-linux-x64-gpu-1.15.1 /opt/onnxruntime
+RUN mv onnxruntime-linux-aarch64-1.17.3 /opt/onnxruntime
 
 # -------------------------
 ADD ./ws /ws

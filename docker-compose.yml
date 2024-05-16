@@ -6,9 +6,9 @@ x-base_service: &base_service
     - PORT=11311
     - DISPLAY=${DISPLAY}
     - ROS_MASTER_URI=http://192.168.55.1:11311
-#    - ROS_MASTER_URI=http://10.0.0.99:11311
+    #    - ROS_MASTER_URI=http://10.0.0.99:11311
     - ROS_IP=192.168.55.1
-#    - ROS_IP=10.0.0.99
+  #    - ROS_IP=10.0.0.99
   volumes:
     - .:/run/detect
     - /tmp/.X11-unix:/tmp/.X11-unix
@@ -26,6 +26,13 @@ x-with-gpu: &with_gpu
             capabilities: [ gpu ]
 
 services:
+  bash:
+    <<: *base_service
+    image: arm64v8/ros:noetic-ros-core
+    command: [ "bash", "-i" ]
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+
   roscore:
     <<: *base_service
     image: arm64v8/ros:noetic-ros-core
@@ -70,7 +77,7 @@ services:
       context: ./detect_v2
       dockerfile: Dockerfile
     profiles: [ "v2" ]
-    command: ["rosrun", "detect", "detect_node", "0.6", "camera/color/image_raw"]
+    command: [ "rosrun", "detect", "detect_node", "0.6", "camera/color/image_raw" ]
     depends_on:
       roscore:
         condition: service_healthy

@@ -41,7 +41,7 @@ services:
     command: [ "roscore", "-v" ]
     healthcheck:
       test: curl -f --silent localhost:11311; [ "$?" == 7 ]; echo $?
-      interval: 10s
+      interval: 6s
       timeout: 5s
       retries: 5
 

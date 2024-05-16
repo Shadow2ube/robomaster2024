@@ -25,12 +25,12 @@ geometry_msgs::Pose make_pose(float x, float y, float z, float ax, float ay, flo
 }
 
 void detect_callback(sensor_msgs::Image) {
-  std::cout << "got an image" << std::endl;
+  ROS_INFO("got an image");
 }
 
 int main(int argc, char **argv) {
   if (argc != 3) {
-    std::cout << "Invalid number of arguments. Expected 2" << std::endl;
+    ROS_ERROR("Invalid number of arguments. Expected 2");
     return 1;
   }
 
@@ -41,7 +41,8 @@ int main(int argc, char **argv) {
     precision = atof(argv[1]);
     outpath = argv[2];
   } catch (std::exception &e) {
-    std::cout << e.what() << std::endl;
+    ROS_ERROR(e.what());
+    return 2;
   }
 
   ros::init(argc, argv, "detect");

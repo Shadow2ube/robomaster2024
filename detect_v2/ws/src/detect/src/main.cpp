@@ -66,7 +66,7 @@ void detect_callback(sensor_msgs::Image img) {
         float cx = data[0];
         float cy = data[1];
 
-        ROS_INFO("object of ID: %i (%f) at (%f, %f)", class_id, max_class_score, cx, cy)
+        ROS_INFO("object of ID: %i (%f) at (%f, %f)", class_id, max_class_score, cx, cy);
       }
     }
     // Jump to the next row.

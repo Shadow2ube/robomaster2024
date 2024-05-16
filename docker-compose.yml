@@ -100,8 +100,8 @@ services:
     privileged: true
     command: [
       "roslaunch", "realsense2_camera", "rs_camera.launch",
-      "depth_module.depth_profile:=1280x720x30",
       "initial_reset:=true",
+      #"depth_module.depth_profile:=1280x720x30",
     ]
     depends_on:
       roscore:

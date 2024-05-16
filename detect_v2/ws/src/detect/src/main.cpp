@@ -52,7 +52,8 @@ int main(int argc, char **argv) {
   ros::Publisher img_pub = n.advertise<geometry_msgs::PoseArray>("camera/detection", 10);
 
   ros::Subscriber image_sub = n.subscribe(outpath, 10, detect_callback);
-  ros::spin()
+
+  ros::spin();
 
   return 0;
 }

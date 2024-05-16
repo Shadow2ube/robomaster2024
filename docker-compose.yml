@@ -32,6 +32,7 @@ services:
     command: [ "bash", "-i" ]
     stdin_open: true # docker run -i
     tty: true        # docker run -t
+    profiles: [ "bash" ]
 
   roscore:
     <<: *base_service

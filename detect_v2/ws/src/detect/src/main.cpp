@@ -51,8 +51,7 @@ int main(int argc, char **argv) {
   ros::Publisher found_pub = n.advertise<geometry_msgs::PoseArray>("found/all", 10);
   ros::Publisher img_pub = n.advertise<geometry_msgs::PoseArray>("camera/detection", 10);
 
-  ros::Subscriber image_sub = n.subscribe(outpath, sensor_msgs::Image, detect_callback);
-
+  ros::Subscriber image_sub = n.subscribe(outpath, 10, detect_callback);
   ros::spin()
 
   return 0;

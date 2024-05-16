@@ -30,7 +30,6 @@ geometry_msgs::Pose make_pose(float x, float y, float z, float ax, float ay, flo
 }
 
 void detect_callback(sensor_msgs::Image img) {
-  ROS_INFO("got an image");
   cv_bridge::CvImagePtr cv_ptr;
   try {
     cv_ptr = cv_bridge::toCvCopy(img, sensor_msgs::image_encodings::BGR8);
@@ -65,7 +64,7 @@ int main(int argc, char **argv) {
 
   target_pub = n.advertise<geometry_msgs::Pose>("found/target", 10);
   found_pub = n.advertise<geometry_msgs::PoseArray>("found/all", 10);
-  img_pub = n.advertise<geometry_msgs::PoseArray>("camera/detection", 10);
+  img_pub = n.advertise<sensor_msgs::Image>("camera/detection", 10);
 
   ros::Subscriber image_sub = n.subscribe(outpath, 10, detect_callback);
 
